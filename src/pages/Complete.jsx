@@ -8,55 +8,74 @@ export default function Complete() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center px-6 text-center"
+      className="flex min-h-screen flex-col items-center justify-center px-6 pb-10 pt-8 text-center"
       style={{ background: 'linear-gradient(135deg,#fff5f7,#fce7f3,#fdf4ff)' }}
     >
       <div
-        className="text-7xl mb-6"
-        style={{ animation: 'bounce 1.2s infinite', display: 'inline-block' }}
+        className="mb-5 text-7xl"
+        style={{ animation: 'bb-bounce 1.2s ease-in-out infinite', display: 'inline-block' }}
       >
         🎉
       </div>
 
-      <h2 className="text-2xl font-extrabold text-gray-800 mb-2">{t.completeTitle}</h2>
-      <p className="text-sm text-gray-400 mb-8">
-        {lang === 'ja'
-          ? `${tutor.nameJp}先生${t.completeSub}`
-          : `${tutor.nameKr}${t.completeSub}`}
+      <span className="mb-3 rounded-full border border-pink-200 bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-rose-500">
+        {lang === 'ja' ? '予約確定' : '예약 확정'}
+      </span>
+
+      <h2 className="mb-2 text-2xl font-extrabold text-gray-800">{t.completeTitle}</h2>
+      <p className="mb-6 max-w-xs text-sm text-gray-500">
+        {lang === 'ja' ? `${tutor.nameJp}先生${t.completeSub}` : `${tutor.nameKr}${t.completeSub}`}
       </p>
 
       <div
-        className="card p-5 mb-8 text-left w-full max-w-xs"
+        className="card mb-6 w-full max-w-sm border-pink-100 p-5 text-left"
         style={{ borderColor: '#fecdd3' }}
       >
+        <p className="mb-3 text-xs font-bold text-gray-800">
+          {lang === 'ja' ? '次のステップ' : '다음 단계'}
+        </p>
         {t.completeNotes.map((note, i) => (
-          <div key={i} className={`flex items-start gap-2 ${i < t.completeNotes.length - 1 ? 'mb-3' : ''}`}>
-            <span className="text-blue-400 mt-0.5">·</span>
-            <span className="text-sm text-gray-700">{note}</span>
+          <div
+            key={i}
+            className={`flex items-start gap-2 ${i < t.completeNotes.length - 1 ? 'mb-3' : ''}`}
+          >
+            <span className="mt-0.5 text-blue-400">·</span>
+            <span className="text-sm leading-relaxed text-gray-700">{note}</span>
           </div>
         ))}
       </div>
 
-      <Avatar tutor={tutor} size={80} />
+      <Avatar tutor={tutor} size={88} ring />
 
-      <p className="text-sm text-gray-400 mt-4 mb-7">
+      <p className="mb-6 mt-4 max-w-xs text-sm text-gray-500">
         {lang === 'ja'
           ? `また${tutor.nameJp}先生に会えるのが楽しみ！`
           : `또 ${tutor.nameKr} ${t.completeFeel}`}
       </p>
 
-      <button
-        className="btn-primary"
-        style={{ maxWidth: 240 }}
-        onClick={() => navigate('/')}
-      >
+      <div className="mb-5 flex w-full max-w-sm flex-col gap-2">
+        <button
+          type="button"
+          className="w-full rounded-2xl border-2 border-pink-200 bg-white py-3.5 text-sm font-bold text-rose-600 transition-colors hover:bg-pink-50"
+        >
+          📅 {t.completeCalendar}
+        </button>
+        <button
+          type="button"
+          className="w-full rounded-2xl border-2 border-gray-200 bg-white py-3.5 text-sm font-bold text-gray-700 transition-colors hover:bg-gray-50"
+        >
+          🔗 {t.completeShare}
+        </button>
+      </div>
+
+      <button type="button" className="btn-primary max-w-xs" onClick={() => navigate('/')}>
         {t.backHome}
       </button>
 
       <style>{`
-        @keyframes bounce {
+        @keyframes bb-bounce {
           0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-16px); }
+          50% { transform: translateY(-14px); }
         }
       `}</style>
     </div>

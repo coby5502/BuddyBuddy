@@ -1,59 +1,80 @@
 import { useApp } from '../context/AppContext'
+import SectionCard from '../components/ui/SectionCard'
 
 export default function Signup() {
   const { t } = useApp()
 
   return (
-    <div className="px-5 pt-6 pb-10">
-      <div className="text-center mb-8">
-        <div className="text-5xl mb-3">💕</div>
-        <h2 className="text-2xl font-extrabold text-gray-800 mb-1">{t.signupTitle}</h2>
-        <p className="text-sm text-gray-400">{t.signupSub}</p>
+    <div className="pb-10">
+      <div className="hero-gradient page-hero page-hero--tight">
+        <div className="text-center">
+          <span className="mb-3 inline-block rounded-full border border-pink-200 bg-white/90 px-3 py-1 text-[10px] font-bold text-rose-500">
+            {t.signupHeroBadge}
+          </span>
+          <div className="mb-3 text-5xl">💕</div>
+          <h2 className="text-2xl font-extrabold text-gray-800">{t.signupTitle}</h2>
+          <p className="mt-1 text-sm text-gray-500">{t.signupSub}</p>
+        </div>
       </div>
 
-      {/* Social login */}
-      <div className="space-y-3 mb-6">
-        <button
-          className="w-full flex items-center justify-center gap-3 py-3.5 rounded-2xl text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50"
-          style={{ background: '#fff', border: '2px solid #e5e7eb' }}
-        >
-          <span className="text-xl">🔵</span>
-          {t.googleBtn}
+      <div className="page-stack !gap-4 !pt-2">
+        <SectionCard title={t.signupPerksTitle}>
+          <ul className="space-y-2">
+            {t.signupPerks.map((line, i) => (
+              <li key={i} className="flex gap-2 text-sm text-gray-700">
+                <span className="font-bold text-rose-500">✓</span>
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </SectionCard>
+
+        <div className="space-y-3">
+          <button
+            type="button"
+            className="flex w-full items-center justify-center gap-3 rounded-2xl border-2 border-gray-200 bg-white py-3.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50"
+          >
+            <span className="text-xl">🔵</span>
+            {t.googleBtn}
+          </button>
+          <button
+            type="button"
+            className="flex w-full items-center justify-center gap-3 rounded-2xl border-2 border-black bg-black py-3.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+          >
+            <span className="text-xl">🍎</span>
+            {t.appleBtn}
+          </button>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <div className="h-px flex-1 bg-gray-200" />
+          <span className="text-xs text-gray-400">{t.orLabel}</span>
+          <div className="h-px flex-1 bg-gray-200" />
+        </div>
+
+        <SectionCard title={t.signupFormTitle}>
+          <div className="space-y-4">
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold text-gray-600">{t.nameLabel}</label>
+              <input type="text" placeholder={t.namePh} className="inp" autoComplete="name" />
+            </div>
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold text-gray-600">{t.emailLabel}</label>
+              <input type="email" placeholder={t.emailPh} className="inp" autoComplete="email" />
+            </div>
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold text-gray-600">{t.passLabel}</label>
+              <input type="password" placeholder="••••••••" className="inp" autoComplete="new-password" />
+            </div>
+          </div>
+        </SectionCard>
+
+        <button type="button" className="btn-primary">
+          {t.signupBtn}
         </button>
-        <button
-          className="w-full flex items-center justify-center gap-3 py-3.5 rounded-2xl text-sm font-semibold text-white transition-opacity hover:opacity-90"
-          style={{ background: '#000', border: 'none' }}
-        >
-          <span className="text-xl">🍎</span>
-          {t.appleBtn}
-        </button>
+
+        <p className="px-1 text-center text-xs leading-relaxed text-gray-400">{t.privacyNote}</p>
       </div>
-
-      <div className="flex items-center gap-3 mb-6">
-        <div className="flex-1 h-px bg-gray-200" />
-        <span className="text-xs text-gray-400">{t.orLabel}</span>
-        <div className="flex-1 h-px bg-gray-200" />
-      </div>
-
-      {/* Form */}
-      <div className="space-y-4 mb-6">
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.nameLabel}</label>
-          <input type="text" placeholder={t.namePh} className="inp" />
-        </div>
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.emailLabel}</label>
-          <input type="email" placeholder={t.emailPh} className="inp" />
-        </div>
-        <div>
-          <label className="block text-sm font-semibold text-gray-700 mb-1.5">{t.passLabel}</label>
-          <input type="password" placeholder="••••••••" className="inp" />
-        </div>
-      </div>
-
-      <button className="btn-primary mb-4">{t.signupBtn}</button>
-
-      <p className="text-center text-xs text-gray-400 leading-relaxed">{t.privacyNote}</p>
     </div>
   )
 }

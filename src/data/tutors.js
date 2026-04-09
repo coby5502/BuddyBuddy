@@ -1,3 +1,15 @@
+/** Unsplash portrait photos (faces, crop) — demo assets only */
+const P = {
+  a: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=480&h=600&fit=crop&crop=faces&q=80',
+  b: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=480&h=600&fit=crop&crop=faces&q=80',
+  c: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=480&h=600&fit=crop&crop=faces&q=80',
+  d: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=480&h=600&fit=crop&crop=faces&q=80',
+  e: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=480&h=600&fit=crop&crop=faces&q=80',
+  f: 'https://images.unsplash.com/photo-1570295999919-56ceb905618a?w=480&h=600&fit=crop&crop=faces&q=80',
+  g: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=480&h=600&fit=crop&crop=faces&q=80',
+  h: 'https://images.unsplash.com/photo-1599566150163-87194a53d796?w=480&h=600&fit=crop&crop=faces&q=80',
+}
+
 const tutors = [
   {
     id: 1,
@@ -9,6 +21,13 @@ const tutors = [
     type: '犬系',
     rating: 4.9,
     reviewCount: 218,
+    joinedYear: 2022,
+    responseMins: 12,
+    lessonsDone: 1840,
+    languages: {
+      ja: '韓国語・日本語（日常会話）',
+      ko: '한국어·일본어(일상 회화)',
+    },
     tags: {
       ja: ['初心者OK', 'フリートーク', '恋愛相談'],
       ko: ['초보자 OK', '프리토크', '연애상담'],
@@ -17,11 +36,20 @@ const tutors = [
       ja: '優しく楽しくレッスンします！恋愛トークも大歓迎😊',
       ko: '친절하고 즐겁게 레슨할게요! 연애 토크도 대환영😊',
     },
+    bioDetail: {
+      ja: '敬語からカジュアルまで、あなたのペースに合わせて話します。宿題は無理のない量だけ。週末の音声メッセージ添削もOKです。',
+      ko: '존댓말부터 캐주얼까지 속도에 맞춰 대화해요. 과제는 부담 없는 분량만. 주말 음성 메시지 첨삭도 가능해요.',
+    },
+    certLine: {
+      ja: '韓国語教育能力試験 / 日本在住6年',
+      ko: '한국어교육능력검정 / 일본 거주 6년',
+    },
     onlinePrice: 3500,
     offlinePrice: 6000,
     gradient: 'linear-gradient(135deg,#ffe4e6,#fecdd3)',
     avatarBg: '#f87171',
     avatar: 'MJ',
+    photoUrl: P.a,
     styles: ['freetalk', 'beginner', 'love'],
     popular: true,
     reviews: [
@@ -40,6 +68,13 @@ const tutors = [
     type: 'クール系',
     rating: 4.8,
     reviewCount: 182,
+    joinedYear: 2023,
+    responseMins: 20,
+    lessonsDone: 960,
+    languages: {
+      ja: '韓国語・日本語・英語（簡単な説明）',
+      ko: '한국어·일본어·영어(간단 설명)',
+    },
     tags: {
       ja: ['フリートーク', '初心者OK'],
       ko: ['프리토크', '초보자 OK'],
@@ -48,11 +83,20 @@ const tutors = [
       ja: 'クールだけど授業は丁寧です。K-popや映画から学ぼう🎬',
       ko: '쿨하지만 수업은 친절해요. K-pop·영화로 배워요🎬',
     },
+    bioDetail: {
+      ja: '教材はドラマのワンシーンや歌詞からピック。発音とイントネーションを一緒に整えます。質問はチャットで24h以内に返信します。',
+      ko: '교재는 드라마 한 장면·가사 위주로 골라요. 발음·억양을 함께 다듬어요. 질문은 채팅으로 24시간 이내 답변.',
+    },
+    certLine: {
+      ja: '映画字幕翻訳経験 / 発音コーチング',
+      ko: '영화 자막 번역 경험 / 발음 코칭',
+    },
     onlinePrice: 3500,
     offlinePrice: 6000,
     gradient: 'linear-gradient(135deg,#e0e7ff,#c7d2fe)',
     avatarBg: '#818cf8',
     avatar: 'SJ',
+    photoUrl: P.b,
     styles: ['freetalk', 'beginner'],
     popular: true,
     reviews: [
@@ -70,6 +114,13 @@ const tutors = [
     type: '年上タイプ',
     rating: 4.9,
     reviewCount: 305,
+    joinedYear: 2021,
+    responseMins: 10,
+    lessonsDone: 2620,
+    languages: {
+      ja: '韓国語・日本語（ビジネス可）',
+      ko: '한국어·일본어(비즈니스 가능)',
+    },
     tags: {
       ja: ['オフライン可能', 'フリートーク', '恋愛相談'],
       ko: ['오프라인 가능', '프리토크', '연애상담'],
@@ -78,11 +129,20 @@ const tutors = [
       ja: '東京在住10年。カフェで楽しくレッスンしませんか☕',
       ko: '도쿄 거주 10년. 카페에서 즐겁게 배워봐요☕',
     },
+    bioDetail: {
+      ja: '渋谷・恵比寿エリアの静かなカフェをご提案。オフラインは「話す安心感」が違います。オンラインとの併用もおすすめです。',
+      ko: '시부야·에비스 조용한 카페를 제안해요. 오프라인은 말하는 안심감이 달라요. 온라인 병행도 추천.',
+    },
+    certLine: {
+      ja: '通訳案内士相当スキル / カフェレッスン300回+',
+      ko: '통역 수준 스킬 / 카페 레슨 300회+',
+    },
     onlinePrice: 3500,
     offlinePrice: 6000,
     gradient: 'linear-gradient(135deg,#fef3c7,#fde68a)',
     avatarBg: '#f59e0b',
     avatar: 'DY',
+    photoUrl: P.c,
     styles: ['freetalk', 'love'],
     popular: true,
     reviews: [
@@ -101,6 +161,13 @@ const tutors = [
     type: '優しい系',
     rating: 4.7,
     reviewCount: 143,
+    joinedYear: 2023,
+    responseMins: 25,
+    lessonsDone: 720,
+    languages: {
+      ja: '韓国語・日本語',
+      ko: '한국어·일본어',
+    },
     tags: {
       ja: ['初心者OK', '恋愛相談'],
       ko: ['초보자 OK', '연애상담'],
@@ -109,11 +176,20 @@ const tutors = [
       ja: '初めての韓国語でも大丈夫！一緒にゆっくり頑張ろう🌸',
       ko: '처음 한국어도 괜찮아요! 함께 천천히 해봐요🌸',
     },
+    bioDetail: {
+      ja: 'ハングルの読み方から、安心のステップ学習。メモ帳アプリに今日の3フレーズを毎回お渡しします。',
+      ko: '한글 읽기부터 안심 스텝 학습. 메모 앱에 오늘의 표현 3개를 매번 드려요.',
+    },
+    certLine: {
+      ja: '語学サポート歴4年',
+      ko: '언어 서포트 경력 4년',
+    },
     onlinePrice: 3000,
     offlinePrice: 5500,
     gradient: 'linear-gradient(135deg,#ccfbf1,#a7f3d0)',
     avatarBg: '#2dd4bf',
     avatar: 'HW',
+    photoUrl: P.d,
     styles: ['beginner', 'love'],
     popular: false,
     reviews: [
@@ -131,6 +207,13 @@ const tutors = [
     type: '犬系',
     rating: 4.8,
     reviewCount: 97,
+    joinedYear: 2024,
+    responseMins: 8,
+    lessonsDone: 410,
+    languages: {
+      ja: '韓国語・日本語（スラング少し）',
+      ko: '한국어·일본어(속어 조금)',
+    },
     tags: {
       ja: ['フリートーク', '初心者OK', 'オフライン可能'],
       ko: ['프리토크', '초보자 OK', '오프라인 가능'],
@@ -139,11 +222,20 @@ const tutors = [
       ja: '明るくて元気いっぱい！楽しく話しながら韓国語上達✨',
       ko: '밝고 에너지 넘쳐요! 즐겁게 대화하며 실력 UP✨',
     },
+    bioDetail: {
+      ja: 'Z世代トレンドワードも紹介。友達感覚で話したい方に。下北沢周辺のオフライン散歩レッスンもできます。',
+      ko: 'Z세대 트렌드 단어도 소개. 친구처럼 이야기하고 싶은 분께. 시모키타자와 산책 레슨도 가능.',
+    },
+    certLine: {
+      ja: '留学サポート経験',
+      ko: '유학 서포트 경험',
+    },
     onlinePrice: 3000,
     offlinePrice: 5500,
     gradient: 'linear-gradient(135deg,#fef9c3,#fde047)',
     avatarBg: '#eab308',
     avatar: 'JW',
+    photoUrl: P.e,
     styles: ['freetalk', 'beginner'],
     popular: false,
     reviews: [
@@ -161,6 +253,13 @@ const tutors = [
     type: 'クール系',
     rating: 4.6,
     reviewCount: 88,
+    joinedYear: 2022,
+    responseMins: 30,
+    lessonsDone: 540,
+    languages: {
+      ja: '韓国語・日本語・英語',
+      ko: '한국어·일본어·영어',
+    },
     tags: {
       ja: ['フリートーク', '恋愛相談'],
       ko: ['프리토크', '연애상담'],
@@ -169,11 +268,20 @@ const tutors = [
       ja: 'ビジネス韓国語からカジュアル会話まで幅広く対応🔥',
       ko: '비즈니스 한국어부터 캐주얼 회화까지 폭넓게 대응🔥',
     },
+    bioDetail: {
+      ja: 'メール・チャットの文面添削、面接ロールプレイも可能。仕事で使う韓国語に特化したコースあり。',
+      ko: '메일·채팅 문장 첨삭, 면접 롤플레이 가능. 업무 한국어 특화 코스 있음.',
+    },
+    certLine: {
+      ja: '外資系勤務経験 / ビジネス韓国語',
+      ko: '외국계 근무 경험 / 비즈니스 한국어',
+    },
     onlinePrice: 4000,
     offlinePrice: 7000,
     gradient: 'linear-gradient(135deg,#ede9fe,#ddd6fe)',
     avatarBg: '#a78bfa',
     avatar: 'SM',
+    photoUrl: P.f,
     styles: ['freetalk', 'love'],
     popular: false,
     reviews: [
@@ -191,6 +299,13 @@ const tutors = [
     type: '年上タイプ',
     rating: 4.9,
     reviewCount: 267,
+    joinedYear: 2020,
+    responseMins: 15,
+    lessonsDone: 3100,
+    languages: {
+      ja: '韓国語・日本語',
+      ko: '한국어·일본어',
+    },
     tags: {
       ja: ['オフライン可能', '初心者OK', 'フリートーク'],
       ko: ['오프라인 가능', '초보자 OK', '프리토크'],
@@ -199,11 +314,20 @@ const tutors = [
       ja: '渋谷・新宿でカフェレッスン開催中🇰🇷一緒に韓国旅行の夢を叶えよう',
       ko: '시부야·신주쿠 카페 레슨 진행 중🇰🇷함께 한국 여행의 꿈을 이뤄요',
     },
+    bioDetail: {
+      ja: '旅行で使えるフレーズ集をシェア。江南・弘大の最新スポット情報も。出張多めの方はオンライン短時間コース向き。',
+      ko: '여행 표현집 공유. 강남·홍대 최신 스팟 정보. 출장 많은 분은 온라인 짧은 코스 추천.',
+    },
+    certLine: {
+      ja: '韓国観光コース設計 / 東京オフライン多数',
+      ko: '한국 관광 코스 설계 / 도쿄 오프라인 다수',
+    },
     onlinePrice: 3500,
     offlinePrice: 6500,
     gradient: 'linear-gradient(135deg,#ffe4e6,#fecaca)',
     avatarBg: '#ef4444',
     avatar: 'JH',
+    photoUrl: P.g,
     styles: ['freetalk', 'beginner'],
     popular: false,
     reviews: [
@@ -222,6 +346,13 @@ const tutors = [
     type: '優しい系',
     rating: 4.8,
     reviewCount: 154,
+    joinedYear: 2022,
+    responseMins: 18,
+    lessonsDone: 1280,
+    languages: {
+      ja: '韓国語・日本語',
+      ko: '한국어·일본어',
+    },
     tags: {
       ja: ['初心者OK', 'フリートーク', '恋愛相談', 'オフライン可能'],
       ko: ['초보자 OK', '프리토크', '연애상담', '오프라인 가능'],
@@ -230,11 +361,20 @@ const tutors = [
       ja: '韓国ドラマ好きな方大歓迎！ドラマのセリフで自然な韓国語を📺',
       ko: '한국 드라마 좋아하는 분 대환영! 드라마 대사로 자연스러운 한국어를🎬',
     },
+    bioDetail: {
+      ja: 'シーンごとに感情表現を分解して練習。推しの名台詞を一緒に完コピしましょう。字幕なし視聴が目標の方も歓迎。',
+      ko: '장면별로 감정 표현을 나눠 연습. 최애 명대사 완벽 재현. 자막 없이 보기가 목표인 분도 환영.',
+    },
+    certLine: {
+      ja: 'ドラマセリフ指導 / 発音矯正',
+      ko: '드라마 대사 지도 / 발음 교정',
+    },
     onlinePrice: 3500,
     offlinePrice: 6000,
     gradient: 'linear-gradient(135deg,#fce7f3,#fbcfe8)',
     avatarBg: '#ec4899',
     avatar: 'TY',
+    photoUrl: P.h,
     styles: ['freetalk', 'beginner', 'love'],
     popular: false,
     reviews: [
