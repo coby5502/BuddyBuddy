@@ -12,7 +12,7 @@ export default function BottomNav() {
 
   return (
     <nav
-      className="sticky bottom-0 z-50 flex justify-around py-3 pb-5"
+      className="sticky bottom-0 z-50 flex justify-around py-3 pb-5 lg:hidden"
       style={{
         background: 'rgba(255,255,255,0.95)',
         backdropFilter: 'blur(12px)',

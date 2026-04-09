@@ -8,8 +8,8 @@ export default function Complete() {
 
   return (
     <div
-      className="flex min-h-screen flex-col items-center justify-center px-6 pb-10 pt-8 text-center"
-      style={{ background: 'linear-gradient(135deg,#fff5f7,#fce7f3,#fdf4ff)' }}
+      className="flex min-h-screen flex-col items-center justify-center px-6 pb-10 pt-8 text-center lg:px-16 lg:py-20"
+      style={{ background: 'linear-gradient(135deg,#fffdfb,#fff5f7,#fce7f3)' }}
     >
       <div
         className="mb-5 text-7xl"
@@ -22,13 +22,13 @@ export default function Complete() {
         {lang === 'ja' ? '予約確定' : '예약 확정'}
       </span>
 
-      <h2 className="mb-2 text-2xl font-extrabold text-gray-800">{t.completeTitle}</h2>
-      <p className="mb-6 max-w-xs text-sm text-gray-500">
+      <h2 className="mb-2 text-2xl font-extrabold text-gray-800 lg:text-3xl">{t.completeTitle}</h2>
+      <p className="mb-6 max-w-xs text-sm text-gray-500 lg:max-w-lg lg:text-base">
         {lang === 'ja' ? `${tutor.nameJp}先生${t.completeSub}` : `${tutor.nameKr}${t.completeSub}`}
       </p>
 
       <div
-        className="card mb-6 w-full max-w-sm border-pink-100 p-5 text-left"
+        className="card mb-6 w-full max-w-sm border-pink-100 p-5 text-left lg:max-w-lg lg:p-8"
         style={{ borderColor: '#fecdd3' }}
       >
         <p className="mb-3 text-xs font-bold text-gray-800">

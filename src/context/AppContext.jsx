@@ -12,7 +12,9 @@ export function AppProvider({ children }) {
   const toggleLang = () => setLang(l => (l === 'ja' ? 'ko' : 'ja'))
 
   return (
-    <AppContext.Provider value={{ lang, t, toggleLang, selectedTutor, setSelectedTutor }}>
+    <AppContext.Provider
+      value={{ lang, setLang, t, toggleLang, selectedTutor, setSelectedTutor }}
+    >
       {children}
     </AppContext.Provider>
   )

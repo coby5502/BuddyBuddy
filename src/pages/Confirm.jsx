@@ -28,7 +28,7 @@ export default function Confirm() {
         </p>
       </div>
 
-      <div className="page-stack !gap-4">
+      <div className="page-stack page-stack--narrow !gap-4">
         <SectionCard title={t.tutorSummary}>
           <div className="flex items-center gap-4">
             <Avatar tutor={tutor} size={64} />

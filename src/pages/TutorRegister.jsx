@@ -69,7 +69,7 @@ export default function TutorRegister() {
         </ol>
       </div>
 
-      <div className="page-stack !gap-4 !pt-4">
+      <div className="page-stack page-stack--narrow !gap-4 !pt-4">
         <SectionCard title={t.basicInfo}>
           <div className="space-y-3">
             {[

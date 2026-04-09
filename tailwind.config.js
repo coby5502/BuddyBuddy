@@ -16,6 +16,13 @@ export default {
           500: '#f43f5e',
           600: '#e11d48',
         },
+        sand: {
+          50:  '#faf8f5',
+          100: '#f3efe8',
+          200: '#e8e0d5',
+          300: '#d4c9b8',
+        },
+        cream: '#fffdfb',
       },
       borderRadius: {
         '2xl': '16px',

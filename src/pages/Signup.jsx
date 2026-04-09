@@ -17,7 +17,7 @@ export default function Signup() {
         </div>
       </div>
 
-      <div className="page-stack !gap-4 !pt-2">
+      <div className="page-stack page-stack--narrow !gap-4 !pt-2">
         <SectionCard title={t.signupPerksTitle}>
           <ul className="space-y-2">
             {t.signupPerks.map((line, i) => (

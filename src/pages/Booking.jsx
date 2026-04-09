@@ -76,7 +76,7 @@ export default function Booking() {
         </div>
       </div>
 
-      <div className="page-stack !gap-4">
+      <div className="page-stack page-stack--narrow !gap-4">
         <SectionCard title={`① ${t.selectLesson}`}>
           <div className="flex gap-2">
             {['online', 'offline'].map((k) => (
