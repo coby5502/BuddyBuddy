@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useApp } from '@/context/AppContext'
+import { ROUTE_PATHS } from '@/config/routes'
 import { useTutorDirectory } from '@/hooks/useTutorDirectory'
 import { averageTutorRating, TUTOR_FILTER_KEYS, TUTOR_SORT_KEYS } from '@/domain/tutors/tutorDirectoryQuery'
 import TutorCard from '@/components/tutor/TutorCard'
@@ -73,6 +75,14 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
+          <p className="mt-4 text-center">
+            <Link
+              to={ROUTE_PATHS.TUTOR_APPLY}
+              className="text-[11px] font-semibold text-gray-400 underline-offset-4 transition hover:text-rose-500 hover:underline lg:text-xs"
+            >
+              {t.tutorApplyAside}
+            </Link>
+          </p>
         </section>
 
         <section className="lg:mx-auto lg:max-w-5xl">

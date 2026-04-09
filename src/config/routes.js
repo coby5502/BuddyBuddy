@@ -6,7 +6,9 @@ export const ROUTE_PATHS = {
   CONFIRM: '/confirm',
   COMPLETE: '/complete',
   SIGNUP: '/signup',
-  TUTOR_REGISTER: '/tutor-register',
+  /** Tutor onboarding — not shown in main tab bar (female-member UX). */
+  TUTOR_APPLY: '/tutor-apply',
+  LESSONS: '/lessons',
 }
 
 export function tutorDetailPath(id) {

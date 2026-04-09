@@ -1,17 +1,20 @@
-/** Unsplash portrait photos (faces, crop) — demo assets only */
+/**
+ * Portrait stock (Unsplash, face crop) — demo only.
+ * Styled / polished looks; not real celebrities or likeness claims.
+ */
 const P = {
-  a: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=480&h=600&fit=crop&crop=faces&q=80',
-  b: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=480&h=600&fit=crop&crop=faces&q=80',
-  c: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=480&h=600&fit=crop&crop=faces&q=80',
-  d: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=480&h=600&fit=crop&crop=faces&q=80',
-  e: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=480&h=600&fit=crop&crop=faces&q=80',
-  f: 'https://images.unsplash.com/photo-1570295999919-56ceb905618a?w=480&h=600&fit=crop&crop=faces&q=80',
-  g: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=480&h=600&fit=crop&crop=faces&q=80',
-  h: 'https://images.unsplash.com/photo-1599566150163-87194a53d796?w=480&h=600&fit=crop&crop=faces&q=80',
-  i: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=480&h=600&fit=crop&crop=faces&q=80',
-  j: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=480&h=600&fit=crop&crop=faces&q=80',
-  k: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=480&h=600&fit=crop&crop=faces&q=80',
-  l: 'https://images.unsplash.com/photo-1557862921-37829c790f19?w=480&h=600&fit=crop&crop=faces&q=80',
+  a: 'https://images.unsplash.com/photo-1615813967515-e1838c1c5116?w=480&h=600&fit=crop&crop=faces&q=80',
+  b: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=480&h=600&fit=crop&crop=faces&q=80',
+  c: 'https://images.unsplash.com/photo-1612349316228-5942a9b489c2?w=480&h=600&fit=crop&crop=faces&q=80',
+  d: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=480&h=600&fit=crop&crop=faces&q=80',
+  e: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=480&h=600&fit=crop&crop=faces&q=80',
+  f: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=480&h=600&fit=crop&crop=faces&q=80',
+  g: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=480&h=600&fit=crop&crop=faces&q=80',
+  h: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=480&h=600&fit=crop&crop=faces&q=80',
+  i: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=480&h=600&fit=crop&crop=faces&q=80',
+  j: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=480&h=600&fit=crop&crop=faces&q=80',
+  k: 'https://images.unsplash.com/photo-1557862921-37829c790f19?w=480&h=600&fit=crop&crop=faces&q=80',
+  l: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=480&h=600&fit=crop&crop=faces&q=80',
 }
 
 const tutors = [

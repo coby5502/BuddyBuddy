@@ -40,6 +40,12 @@ export const ko = {
     homeStatSatisfaction: '만족도',
     homeStatRating: '평균 평점',
     homeStatTeachers: '등록 강사',
+    lessonsTitle: '레슨 · 예약',
+    lessonsSub: '예약 목록과 기록 (데모)',
+    lessonsCardTitle: '아직 예약이 없어요',
+    lessonsEmptyBody: '데모 버전에서는 목록이 아직 준비 중이에요. 마음에 드는 선생님을 찾아 프로필부터 둘러보세요.',
+    lessonsBrowseCta: '선생님 찾기',
+    tutorApplyAside: '강사(튜터) 지원은 여기',
     signupFormTitle: '회원 정보',
     online: '온라인',
     offline: '오프라인',
@@ -156,6 +162,6 @@ export const ko = {
     offlinePrLabel: '오프라인 (30분)',
     tutorRegBtn: '강사로 등록하기',
     next: '다음으로 →',
-    nav: { home: '홈', signup: '회원가입', tutorReg: '강사등록' },
+    nav: { home: '홈', lessons: '레슨', myPage: '마이페이지' },
 }
 export default ko

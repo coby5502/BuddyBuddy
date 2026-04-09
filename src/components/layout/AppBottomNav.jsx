@@ -4,8 +4,8 @@ import { ROUTE_PATHS } from '@/config/routes'
 
 const NAV_ITEMS = [
   { path: ROUTE_PATHS.HOME, icon: '🏠', labelKey: 'home', end: true },
-  { path: ROUTE_PATHS.SIGNUP, icon: '👩', labelKey: 'signup', end: false },
-  { path: ROUTE_PATHS.TUTOR_REGISTER, icon: '👨', labelKey: 'tutorReg', end: false },
+  { path: ROUTE_PATHS.LESSONS, icon: '📅', labelKey: 'lessons', end: false },
+  { path: ROUTE_PATHS.SIGNUP, icon: '💕', labelKey: 'myPage', end: false },
 ]
 
 export default function AppBottomNav() {

@@ -4,8 +4,8 @@ import { ROUTE_PATHS } from '@/config/routes'
 
 const DESKTOP_NAV = [
   { path: ROUTE_PATHS.HOME, end: true, labelKey: 'home' },
-  { path: ROUTE_PATHS.SIGNUP, end: false, labelKey: 'signup' },
-  { path: ROUTE_PATHS.TUTOR_REGISTER, end: false, labelKey: 'tutorReg' },
+  { path: ROUTE_PATHS.LESSONS, end: false, labelKey: 'lessons' },
+  { path: ROUTE_PATHS.SIGNUP, end: false, labelKey: 'myPage' },
 ]
 
 export default function AppHeader() {

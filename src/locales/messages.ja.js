@@ -40,6 +40,12 @@ export const ja = {
     homeStatSatisfaction: '満足度',
     homeStatRating: '平均評価',
     homeStatTeachers: '掲載講師',
+    lessonsTitle: 'レッスン・予約',
+    lessonsSub: '予約一覧と履歴（デモ）',
+    lessonsCardTitle: 'まだ予約はありません',
+    lessonsEmptyBody: 'デモ版では一覧は準備中です。気になる先生を見つけて、まずはプロフィールからチェックしてみてください。',
+    lessonsBrowseCta: '先生を探す',
+    tutorApplyAside: '講師として参加されたい方はこちら',
     signupFormTitle: '会員情報',
     online: 'オンライン',
     offline: 'オフライン',
@@ -156,6 +162,6 @@ export const ja = {
     offlinePrLabel: 'オフライン (30分)',
     tutorRegBtn: '講師として登録する',
     next: '次へ進む →',
-    nav: { home: 'ホーム', signup: '会員登録', tutorReg: '講師登録' },
+    nav: { home: 'ホーム', lessons: 'レッスン', myPage: 'マイページ' },
 }
 export default ja
