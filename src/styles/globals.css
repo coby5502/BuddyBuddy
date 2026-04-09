@@ -162,7 +162,6 @@
   }
 }
 
-/* Desktop: wide shell, soft page backdrop */
 @media (min-width: 1024px) {
   body {
     @apply bg-sand-100 py-5;

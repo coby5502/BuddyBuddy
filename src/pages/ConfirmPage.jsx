@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useApp } from '../context/AppContext'
-import Stars from '../components/ui/Stars'
-import Avatar from '../components/ui/Avatar'
-import BackLink from '../components/ui/BackLink'
-import SectionCard from '../components/ui/SectionCard'
-import StickyBar from '../components/ui/StickyBar'
+import { useApp } from '@/context/AppContext'
+import { ROUTE_PATHS } from '@/config/routes'
+import Stars from '@/components/ui/Stars'
+import Avatar from '@/components/ui/Avatar'
+import BackLink from '@/components/ui/BackLink'
+import SectionCard from '@/components/ui/SectionCard'
+import StickyBar from '@/components/ui/StickyBar'
 
-export default function Confirm() {
+export default function ConfirmPage() {
   const { lang, t, selectedTutor: tutor } = useApp()
   const navigate = useNavigate()
   const [agree, setAgree] = useState(true)
@@ -121,7 +122,7 @@ export default function Confirm() {
           type="button"
           className="btn-primary"
           disabled={!agree}
-          onClick={() => agree && navigate('/complete')}
+          onClick={() => agree && navigate(ROUTE_PATHS.COMPLETE)}
         >
           💕 {t.confirmBtn}
         </button>

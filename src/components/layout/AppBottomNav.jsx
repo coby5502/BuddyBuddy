@@ -1,13 +1,14 @@
 import { NavLink } from 'react-router-dom'
-import { useApp } from '../context/AppContext'
+import { useApp } from '@/context/AppContext'
+import { ROUTE_PATHS } from '@/config/routes'
 
 const NAV_ITEMS = [
-  { path: '/', icon: '🏠', labelKey: 'home' },
-  { path: '/signup', icon: '👩', labelKey: 'signup' },
-  { path: '/tutor-register', icon: '👨', labelKey: 'tutorReg' },
+  { path: ROUTE_PATHS.HOME, icon: '🏠', labelKey: 'home', end: true },
+  { path: ROUTE_PATHS.SIGNUP, icon: '👩', labelKey: 'signup', end: false },
+  { path: ROUTE_PATHS.TUTOR_REGISTER, icon: '👨', labelKey: 'tutorReg', end: false },
 ]
 
-export default function BottomNav() {
+export default function AppBottomNav() {
   const { t } = useApp()
 
   return (
@@ -19,11 +20,11 @@ export default function BottomNav() {
         borderTop: '1px solid #fecdd3',
       }}
     >
-      {NAV_ITEMS.map(({ path, icon, labelKey }) => (
+      {NAV_ITEMS.map(({ path, icon, labelKey, end }) => (
         <NavLink
           key={path}
           to={path}
-          end={path === '/'}
+          end={end}
           className={({ isActive }) =>
             `flex flex-col items-center gap-0.5 transition-colors ${
               isActive ? 'text-rose-500' : 'text-gray-400'

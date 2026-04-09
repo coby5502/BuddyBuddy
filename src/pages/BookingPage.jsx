@@ -1,14 +1,19 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useApp } from '../context/AppContext'
-import Avatar from '../components/ui/Avatar'
-import BackLink from '../components/ui/BackLink'
-import SectionCard from '../components/ui/SectionCard'
-import StickyBar from '../components/ui/StickyBar'
+import { useApp } from '@/context/AppContext'
+import { ROUTE_PATHS } from '@/config/routes'
+import {
+  BOOKING_CALENDAR_ANCHOR,
+  BOOKING_DATE_RANGE_DAYS,
+  BOOKING_TIME_SLOTS,
+} from '@/config/booking.constants'
+import { buildBookingDateStrip } from '@/domain/booking/buildBookingDateStrip'
+import Avatar from '@/components/ui/Avatar'
+import BackLink from '@/components/ui/BackLink'
+import SectionCard from '@/components/ui/SectionCard'
+import StickyBar from '@/components/ui/StickyBar'
 
-const TIMES = ['10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '18:00', '19:00', '20:00']
-
-export default function Booking() {
+export default function BookingPage() {
   const { lang, t, selectedTutor: tutor } = useApp()
   const navigate = useNavigate()
   const [ltype, setLtype] = useState('online')
@@ -17,12 +22,10 @@ export default function Booking() {
   const [selCourse, setSelCourse] = useState(null)
   const [note, setNote] = useState('')
 
-  const today = new Date(2026, 3, 9)
-  const dates = Array.from({ length: 14 }, (_, i) => {
-    const d = new Date(today)
-    d.setDate(today.getDate() + i + 1)
-    return d
-  })
+  const dates = useMemo(() => {
+    const [y, m, d] = BOOKING_CALENDAR_ANCHOR
+    return buildBookingDateStrip(new Date(y, m, d), BOOKING_DATE_RANGE_DAYS, 1)
+  }, [])
 
   const courses = ltype === 'online' ? t.onlineCourses : t.offlineCourses
   const canGo = selDate !== null && selTime !== null && selCourse !== null
@@ -150,7 +153,7 @@ export default function Booking() {
 
         <SectionCard title={`④ ${t.selectTime}`}>
           <div className="grid grid-cols-3 gap-2">
-            {TIMES.map((tm) => (
+            {BOOKING_TIME_SLOTS.map((tm) => (
               <button
                 key={tm}
                 type="button"
@@ -189,7 +192,7 @@ export default function Booking() {
           type="button"
           className="btn-primary"
           disabled={!canGo}
-          onClick={() => canGo && navigate('/confirm')}
+          onClick={() => canGo && navigate(ROUTE_PATHS.CONFIRM)}
         >
           {t.next}
         </button>

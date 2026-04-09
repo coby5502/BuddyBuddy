@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom'
-import { useApp } from '../context/AppContext'
-import Stars from './ui/Stars'
-import TagChip from './ui/TagChip'
+import { useApp } from '@/context/AppContext'
+import { tutorDetailPath } from '@/config/routes'
+import Stars from '@/components/ui/Stars'
+import TagChip from '@/components/ui/TagChip'
 
 export default function TutorCard({ tutor }) {
   const { lang, t, setSelectedTutor } = useApp()
@@ -9,7 +10,7 @@ export default function TutorCard({ tutor }) {
 
   const handleView = () => {
     setSelectedTutor(tutor)
-    navigate(`/tutor/${tutor.id}`)
+    navigate(tutorDetailPath(tutor.id))
   }
 
   const tags = lang === 'ja' ? tutor.tags.ja : tutor.tags.ko

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react'
-import i18n from '../i18n'
-import tutors from '../data/tutors'
+import { getDictionary } from '@/locales'
+import tutors from '@/data/tutors'
 
 const AppContext = createContext(null)
 
@@ -8,8 +8,8 @@ export function AppProvider({ children }) {
   const [lang, setLang] = useState('ja')
   const [selectedTutor, setSelectedTutor] = useState(tutors[0])
 
-  const t = i18n[lang]
-  const toggleLang = () => setLang(l => (l === 'ja' ? 'ko' : 'ja'))
+  const t = getDictionary(lang)
+  const toggleLang = () => setLang((l) => (l === 'ja' ? 'ko' : 'ja'))
 
   return (
     <AppContext.Provider
@@ -20,4 +20,10 @@ export function AppProvider({ children }) {
   )
 }
 
-export const useApp = () => useContext(AppContext)
+export function useApp() {
+  const ctx = useContext(AppContext)
+  if (!ctx) {
+    throw new Error('useApp must be used within AppProvider')
+  }
+  return ctx
+}

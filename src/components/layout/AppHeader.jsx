@@ -1,13 +1,14 @@
 import { NavLink, Link } from 'react-router-dom'
-import { useApp } from '../context/AppContext'
+import { useApp } from '@/context/AppContext'
+import { ROUTE_PATHS } from '@/config/routes'
 
 const DESKTOP_NAV = [
-  { path: '/', end: true, labelKey: 'home' },
-  { path: '/signup', end: false, labelKey: 'signup' },
-  { path: '/tutor-register', end: false, labelKey: 'tutorReg' },
+  { path: ROUTE_PATHS.HOME, end: true, labelKey: 'home' },
+  { path: ROUTE_PATHS.SIGNUP, end: false, labelKey: 'signup' },
+  { path: ROUTE_PATHS.TUTOR_REGISTER, end: false, labelKey: 'tutorReg' },
 ]
 
-export default function Header() {
+export default function AppHeader() {
   const { lang, setLang, t } = useApp()
 
   return (
@@ -20,7 +21,7 @@ export default function Header() {
     >
       <div className="flex flex-wrap items-center justify-between gap-3 lg:gap-6">
         <div className="flex min-w-0 flex-1 flex-col gap-0.5 lg:flex-row lg:items-center lg:gap-8">
-          <Link to="/" className="flex shrink-0 items-center gap-1.5">
+          <Link to={ROUTE_PATHS.HOME} className="flex shrink-0 items-center gap-1.5">
             <span
               className="text-lg font-extrabold tracking-tight lg:text-xl"
               style={{

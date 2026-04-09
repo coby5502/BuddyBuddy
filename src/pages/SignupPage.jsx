@@ -1,7 +1,7 @@
-import { useApp } from '../context/AppContext'
-import SectionCard from '../components/ui/SectionCard'
+import { useApp } from '@/context/AppContext'
+import SectionCard from '@/components/ui/SectionCard'
 
-export default function Signup() {
+export default function SignupPage() {
   const { t } = useApp()
 
   return (

@@ -1,70 +1,24 @@
 import { useMemo, useState } from 'react'
-import { useApp } from '../context/AppContext'
-import TutorCard from '../components/TutorCard'
-import tutors from '../data/tutors'
+import { useApp } from '@/context/AppContext'
+import { useTutorDirectory } from '@/hooks/useTutorDirectory'
+import { averageTutorRating, TUTOR_FILTER_KEYS, TUTOR_SORT_KEYS } from '@/domain/tutors/tutorDirectoryQuery'
+import TutorCard from '@/components/tutor/TutorCard'
 
-const SORT_KEYS = ['popular', 'rating', 'sales', 'newest']
-const FILTER_KEYS = ['beginner', 'freetalk', 'love', 'offline']
-
-function normalize(s) {
-  return s.toLowerCase().trim()
-}
-
-function tutorMatchesSearch(tutor, q, lang) {
-  if (!q) return true
-  const n = normalize(q)
-  const intro = lang === 'ja' ? tutor.intro.ja : tutor.intro.ko
-  const tags = lang === 'ja' ? tutor.tags.ja : tutor.tags.ko
-  const blob = [tutor.nameKr, tutor.nameJp, tutor.nameEn, intro, ...tags].join(' ').toLowerCase()
-  return blob.includes(n)
-}
-
-function tutorMatchesFilters(tutor, filters, lang) {
-  if (filters.length === 0) return true
-  const tags = lang === 'ja' ? tutor.tags.ja : tutor.tags.ko
-  return filters.every((f) => {
-    if (f === 'offline') {
-      return tags.some((tag) => tag.includes('オフライン') || tag.includes('오프라인'))
-    }
-    return tutor.styles.includes(f)
-  })
-}
-
-function sortTutors(list, key) {
-  const copy = [...list]
-  if (key === 'popular') {
-    copy.sort((a, b) => Number(b.popular) - Number(a.popular) || b.rating - a.rating)
-  } else if (key === 'rating') {
-    copy.sort((a, b) => b.rating - a.rating)
-  } else if (key === 'sales') {
-    copy.sort((a, b) => b.reviewCount - a.reviewCount)
-  } else if (key === 'newest') {
-    copy.sort((a, b) => b.joinedYear - a.joinedYear || b.id - a.id)
-  }
-  return copy
-}
-
-export default function Home() {
-  const { lang, t } = useApp()
-  const [sort, setSort] = useState('popular')
+export default function HomePage() {
+  const { t } = useApp()
+  const {
+    allTutors,
+    filtered,
+    sort,
+    setSort,
+    activeFilters,
+    toggleFilter,
+    search,
+    setSearch,
+  } = useTutorDirectory('popular')
   const [showSort, setShowSort] = useState(false)
-  const [activeFilters, setActiveFilters] = useState([])
-  const [search, setSearch] = useState('')
 
-  const toggleFilter = (f) =>
-    setActiveFilters((p) => (p.includes(f) ? p.filter((x) => x !== f) : [...p, f]))
-
-  const filtered = useMemo(() => {
-    const base = tutors.filter(
-      (tu) => tutorMatchesSearch(tu, search, lang) && tutorMatchesFilters(tu, activeFilters, lang),
-    )
-    return sortTutors(base, sort)
-  }, [activeFilters, lang, search, sort])
-
-  const avgRating = useMemo(() => {
-    const s = tutors.reduce((acc, tu) => acc + tu.rating, 0)
-    return (s / tutors.length).toFixed(2)
-  }, [])
+  const avgRating = useMemo(() => averageTutorRating(allTutors), [allTutors])
 
   return (
     <div className="pb-2">
@@ -103,7 +57,7 @@ export default function Home() {
           </div>
           <div className="stat-pill">
             <span className="text-[10px] text-gray-400 lg:text-xs">{t.homeStatTeachers}</span>
-            <span className="text-sm font-bold text-gray-800 lg:text-lg">{tutors.length}</span>
+            <span className="text-sm font-bold text-gray-800 lg:text-lg">{allTutors.length}</span>
           </div>
         </div>
       </div>
@@ -154,10 +108,8 @@ export default function Home() {
               </button>
 
               {showSort && (
-                <div
-                  className="absolute left-0 top-11 z-30 min-w-[160px] overflow-hidden rounded-2xl border border-pink-200 bg-white shadow-xl"
-                >
-                  {SORT_KEYS.map((k) => (
+                <div className="absolute left-0 top-11 z-30 min-w-[160px] overflow-hidden rounded-2xl border border-pink-200 bg-white shadow-xl">
+                  {TUTOR_SORT_KEYS.map((k) => (
                     <button
                       key={k}
                       type="button"
@@ -177,13 +129,13 @@ export default function Home() {
             </div>
 
             <span className="text-xs text-gray-400 lg:text-sm">
-              {filtered.length}/{tutors.length}
+              {filtered.length}/{allTutors.length}
               {t.tutorCount}
             </span>
           </div>
 
           <div className="mb-4 flex flex-wrap gap-2 lg:mb-6 lg:gap-3">
-            {FILTER_KEYS.map((f) => (
+            {TUTOR_FILTER_KEYS.map((f) => (
               <button
                 key={f}
                 type="button"

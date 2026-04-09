@@ -40,6 +40,8 @@ Or via CLI:
 npx vercel --prod
 ```
 
+Optional helper (interactive tokens): `bash scripts/deploy.sh`
+
 ---
 
 ## Tech Stack

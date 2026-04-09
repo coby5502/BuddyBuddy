@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom'
-import { useApp } from '../context/AppContext'
-import Avatar from '../components/ui/Avatar'
+import { useApp } from '@/context/AppContext'
+import { ROUTE_PATHS } from '@/config/routes'
+import Avatar from '@/components/ui/Avatar'
 
-export default function Complete() {
+export default function CompletePage() {
   const { lang, t, selectedTutor: tutor } = useApp()
   const navigate = useNavigate()
 
@@ -68,7 +69,7 @@ export default function Complete() {
         </button>
       </div>
 
-      <button type="button" className="btn-primary max-w-xs" onClick={() => navigate('/')}>
+      <button type="button" className="btn-primary max-w-xs" onClick={() => navigate(ROUTE_PATHS.HOME)}>
         {t.backHome}
       </button>
 

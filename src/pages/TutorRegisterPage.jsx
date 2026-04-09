@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { useApp } from '../context/AppContext'
-import SectionCard from '../components/ui/SectionCard'
+import { useApp } from '@/context/AppContext'
+import SectionCard from '@/components/ui/SectionCard'
+import FormSwitch from '@/components/ui/FormSwitch'
 
-export default function TutorRegister() {
+export default function TutorRegisterPage() {
   const { t } = useApp()
   const [onlineOn, setOnlineOn] = useState(false)
   const [offlineOn, setOfflineOn] = useState(false)
@@ -11,38 +12,6 @@ export default function TutorRegister() {
   const styleKeys = Object.keys(t.styles)
   const toggleStyle = (s) =>
     setSelStyles((p) => (p.includes(s) ? p.filter((x) => x !== s) : [...p, s]))
-
-  function Toggle({ on, setOn }) {
-    return (
-      <button
-        type="button"
-        onClick={() => setOn(!on)}
-        className="relative flex-shrink-0 transition-colors"
-        style={{
-          width: 48,
-          height: 26,
-          borderRadius: 13,
-          background: on ? '#f43f5e' : '#d1d5db',
-          border: 'none',
-          cursor: 'pointer',
-        }}
-      >
-        <span
-          style={{
-            position: 'absolute',
-            top: 3,
-            width: 20,
-            height: 20,
-            background: '#fff',
-            borderRadius: '50%',
-            boxShadow: '0 1px 4px rgba(0,0,0,0.2)',
-            transition: 'left 0.2s',
-            left: on ? 25 : 3,
-          }}
-        />
-      </button>
-    )
-  }
 
   return (
     <div className="pb-10">
@@ -153,7 +122,7 @@ export default function TutorRegister() {
                   <span>{item.icon}</span>
                   <span className="text-sm font-medium text-gray-700">{item.label}</span>
                 </div>
-                <Toggle on={item.on} setOn={item.setOn} />
+                <FormSwitch on={item.on} onToggle={item.setOn} ariaLabel={item.label} />
               </div>
             ))}
           </div>
@@ -167,9 +136,7 @@ export default function TutorRegister() {
             ].map((f, i) => (
               <div key={i} className="flex items-center gap-3">
                 <label className="min-w-[120px] text-xs font-medium text-gray-500">{f.label}</label>
-                <div
-                  className="flex flex-1 items-center rounded-2xl border-2 border-gray-100 bg-gray-50 px-3 py-2.5"
-                >
+                <div className="flex flex-1 items-center rounded-2xl border-2 border-gray-100 bg-gray-50 px-3 py-2.5">
                   <span className="mr-1 text-sm text-gray-400">¥</span>
                   <input
                     type="number"

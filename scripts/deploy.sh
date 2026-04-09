@@ -1,6 +1,6 @@
 #!/bin/bash
 # BuddyBuddy 배포 스크립트
-# 터미널에서 실행: bash deploy.sh
+# Repo root에서 실행: bash scripts/deploy.sh
 
 set -e
 echo "🚀 BuddyBuddy 배포를 시작합니다..."
