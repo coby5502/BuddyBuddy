@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BuddyBuddy 💕</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.development.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #f3f4f6; font-family: 'Noto Sans JP', 'Noto Sans KR', sans-serif; }
+  ::-webkit-scrollbar { width: 0; height: 0; }
+  input, textarea, button { font-family: inherit; }
+  .app-shell {
+    max-width: 390px;
+    margin: 0 auto;
+    background: #fff;
+    min-height: 100vh;
+    position: relative;
+    box-shadow: 0 0 40px rgba(0,0,0,0.12);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .screen-scroll {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  /* Gradient backgrounds */
+  .grad-hero { background: linear-gradient(135deg, #fff5f7 0%, #fce7f3 50%, #fdf4ff 100%); }
+  .grad-rose { background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%); }
+  .grad-indigo { background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%); }
+  .grad-amber { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); }
+  .grad-teal { background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%); }
+  .grad-yellow { background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%); }
+  .grad-purple { background: linear-gradient(135deg, #faf5ff 0%, #ede9fe 100%); }
+  .grad-red { background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%); }
+  .grad-pink { background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%); }
+  /* Card */
+  .card { background: #fff; border-radius: 24px; border: 1px solid #fff0f3; box-shadow: 0 2px 12px rgba(244,63,94,0.06); }
+  /* Buttons */
+  .btn-primary { background: linear-gradient(135deg, #f43f5e, #ec4899); color: #fff; border: none; border-radius: 16px; padding: 14px; font-weight: 700; font-size: 15px; cursor: pointer; width: 100%; box-shadow: 0 4px 16px rgba(244,63,94,0.25); transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-primary:disabled { background: #e5e7eb; color: #9ca3af; box-shadow: none; cursor: not-allowed; }
+  .btn-secondary { background: #fff; border: 2px solid #fecdd3; border-radius: 16px; padding: 12px; font-weight: 600; font-size: 13px; cursor: pointer; color: #f43f5e; transition: all 0.2s; }
+  .btn-secondary:hover { background: #fff1f2; }
+  /* Tag */
+  .tag { background: #fff1f2; color: #f43f5e; font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 600; display: inline-block; }
+  .tag-blue { background: #eff6ff; color: #3b82f6; }
+  .tag-green { background: #f0fdf4; color: #22c55e; }
+  /* Avatar */
+  .avatar-circle { border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); flex-shrink: 0; }
+  /* Toggle */
+  .toggle-btn { flex: 1; padding: 10px; border-radius: 16px; border: none; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .toggle-active { background: linear-gradient(135deg, #f43f5e, #ec4899); color: #fff; box-shadow: 0 3px 10px rgba(244,63,94,0.3); }
+  .toggle-inactive { background: #f3f4f6; color: #6b7280; }
+  /* Filter */
+  .filter-chip { padding: 7px 14px; border-radius: 20px; border: 2px solid #e5e7eb; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; background: #fff; color: #6b7280; }
+  .filter-chip.active { background: #f43f5e; color: #fff; border-color: #f43f5e; }
+  /* Input */
+  .inp { width: 100%; border: 2px solid #f3f4f6; border-radius: 16px; padding: 12px 16px; font-size: 14px; outline: none; background: #fafafa; transition: border-color 0.2s; }
+  .inp:focus { border-color: #fda4af; }
+  /* Stars */
+  .stars { color: #facc15; font-weight: 700; font-size: 13px; }
+  /* Bottom bar */
+  .bottom-bar { position: sticky; bottom: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-top: 1px solid #fff0f3; padding: 12px 16px; z-index: 50; }
+  /* Section title */
+  .section-title { font-weight: 700; font-size: 15px; color: #1f2937; margin-bottom: 12px; }
+  /* Scrollable dates */
+  .date-scroll { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; }
+  .date-btn { flex-shrink: 0; width: 48px; display: flex; flex-direction: column; align-items: center; padding: 8px 4px; border-radius: 16px; border: 2px solid #f3f4f6; background: #fff; cursor: pointer; transition: all 0.2s; }
+  .date-btn.selected { border-color: #f43f5e; background: #fff1f2; }
+  /* Time grid */
+  .time-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .time-btn { padding: 10px; border-radius: 14px; border: 2px solid #f3f4f6; background: #fff; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; color: #374151; }
+  .time-btn.selected { border-color: #f43f5e; background: #fff1f2; color: #f43f5e; }
+  /* Sort dropdown */
+  .sort-dropdown { position: absolute; top: 44px; left: 0; background: #fff; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.12); border: 1px solid #fecdd3; z-index: 100; overflow: hidden; min-width: 140px; }
+  .sort-option { width: 100%; text-align: left; padding: 11px 16px; font-size: 13px; border: none; background: none; cursor: pointer; color: #374151; transition: background 0.15s; }
+  .sort-option:hover { background: #fff1f2; }
+  .sort-option.selected { color: #f43f5e; font-weight: 700; background: #fff1f2; }
+  /* Review card */
+  .review-card { background: #fff5f7; border-radius: 16px; padding: 12px; }
+  /* Tutor card */
+  .tutor-card { background: #fff; border-radius: 24px; border: 1px solid #fff0f3; box-shadow: 0 2px 10px rgba(244,63,94,0.05); overflow: hidden; display: flex; margin-bottom: 14px; }
+  .tutor-img { width: 128px; flex-shrink: 0; position: relative; display: flex; align-items: center; justify-content: center; }
+  /* Badge */
+  .badge-pop { position: absolute; top: 8px; left: 8px; background: #f43f5e; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 700; }
+  .badge-premium { background: linear-gradient(135deg, #f43f5e, #ec4899); color: #fff; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 700; display: inline-block; }
+  /* Checkmark list */
+  .check-item { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  /* Complete screen */
+  .complete-screen { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; background: linear-gradient(135deg, #fff5f7 0%, #fce7f3 50%, #fdf4ff 100%); text-align: center; }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+  .emoji-bounce { animation: bounce 1.2s infinite; display: inline-block; font-size: 64px; margin-bottom: 20px; }
+  /* Responsive phone frame on desktop */
+  @media (min-width: 640px) {
+    body { background: linear-gradient(135deg, #fce7f3, #e0e7ff); display: flex; align-items: flex-start; justify-content: center; padding: 20px 0 40px; }
+    .app-shell { border-radius: 40px; min-height: auto; max-height: 90vh; }
+    .screen-scroll { max-height: calc(90vh - 56px - 64px); }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState } = React;
+
+// ===================== i18n =====================
+const i18n = {
+  ja: {
+    appName: "BuddyBuddy",
+    tagline: "韓国人の先生と楽しく学ぼう",
+    searchPh: "先生を探す...",
+    sortOpts: { popular:"人気順", rating:"評価順", sales:"販売順", newest:"新着順" },
+    filters: { beginner:"初心者OK", freetalk:"フリートーク", love:"恋愛相談", offline:"オフライン可能" },
+    viewProfile: "プロフィールを見る",
+    reviews: "件", age: "歳",
+    onlineL: "オンラインレッスン", offlineL: "オフラインレッスン",
+    offlineDesc: "東京で直接会ってレッスン",
+    premBadge: "プレミアム", popBadge: "人気",
+    lessonStyle: "レッスンスタイル",
+    styles: { freetalk:"フリートーク中心", beginner:"初心者歓迎", love:"恋愛トークOK" },
+    reviewSec: "受講者の声",
+    bookNow: "予約する",
+    selectLesson: "レッスンタイプを選択", selectDate: "日付を選択",
+    selectTime: "時間を選択", selectCourse: "コースを選択",
+    onlineStr: "オンライン", offlineStr: "オフライン",
+    confirmTitle: "予約内容の確認",
+    lessonTypeLabel: "レッスン", timeLabel: "日時", priceLabel: "合計金額",
+    checks: ["1:1 プライベートレッスン", "初心者OK", "Zoom or 対面"],
+    confirmBtn: "今すぐ予約する",
+    payMethod: "お支払い方法",
+    completeTitle: "予約が完了しました 🎉",
+    completeNotes: ["Zoomリンク送信済み", "開始10分前にリマインド送信"],
+    backHome: "ホームに戻る",
+    signupTitle: "素敵な先生と出会いましょう",
+    signupSub: "無料で始めよう",
+    nameLabel:"お名前", emailLabel:"メールアドレス", passLabel:"パスワード",
+    signupBtn: "アカウントを作成",
+    orLabel: "または",
+    googleBtn: "Googleでログイン", appleBtn: "Appleでログイン",
+    privacyNote: "登録することでプライバシーポリシーと利用規約に同意します",
+    tutorRegTitle: "講師として登録する",
+    tutorRegSub: "プロフィールを作成して生徒を見つけよう",
+    basicInfo: "基本情報",
+    ageLabel: "年齢", areaLabel: "居住エリア",
+    photoVideo: "写真・動画",
+    photoLabel: "プロフィール写真", videoLabel: "自己紹介動画",
+    photoHint: "タップして写真を追加", videoHint: "自己紹介動画をアップロード",
+    introSection: "自己紹介",
+    introJp: "自己紹介（日本語）", introKr: "自己紹介（韓国語）",
+    introJpPh: "日本語で自己紹介を書いてください",
+    introKrPh: "韓国語でも自己紹介を書いてください",
+    styleTitle: "レッスンスタイル",
+    availLesson: "対応可能なレッスン",
+    onlineAvail: "オンライン可能", offlineAvail: "オフライン可能",
+    priceTitle: "料金設定（30分）",
+    onlinePrLabel: "オンライン (30分)", offlinePrLabel: "オフライン (30分)",
+    tutorRegBtn: "講師として登録する",
+    nav: { home:"ホーム", signup:"会員登録", tutorReg:"講師登録" },
+    tutors: "人の先生", next: "次へ進む →",
+    detailBack: "戻る", bookingBack: "戻る",
+  },
+  ko: {
+    appName: "버디버디",
+    tagline: "한국인 선생님과 즐겁게 배워요",
+    searchPh: "선생님 찾기...",
+    sortOpts: { popular:"인기순", rating:"평점순", sales:"예약많은순", newest:"최신순" },
+    filters: { beginner:"초보자 OK", freetalk:"프리토크", love:"연애상담", offline:"오프라인 가능" },
+    viewProfile: "프로필 보기",
+    reviews: "건", age: "세",
+    onlineL: "온라인 레슨", offlineL: "오프라인 레슨",
+    offlineDesc: "도쿄에서 직접 만나서 레슨",
+    premBadge: "프리미엄", popBadge: "인기",
+    lessonStyle: "레슨 스타일",
+    styles: { freetalk:"프리토크 중심", beginner:"초보자 환영", love:"연애 토크 OK" },
+    reviewSec: "수강생 후기",
+    bookNow: "예약하기",
+    selectLesson: "레슨 타입 선택", selectDate: "날짜 선택",
+    selectTime: "시간 선택", selectCourse: "코스 선택",
+    onlineStr: "온라인", offlineStr: "오프라인",
+    confirmTitle: "예약 내용 확인",
+    lessonTypeLabel: "레슨", timeLabel: "일시", priceLabel: "총 금액",
+    checks: ["1:1 프라이빗 레슨", "초보자 OK", "Zoom 또는 대면"],
+    confirmBtn: "지금 바로 예약하기",
+    payMethod: "결제 방법",
+    completeTitle: "예약이 완료되었습니다 🎉",
+    completeNotes: ["Zoom 링크 전송 완료", "시작 10분 전 리마인드 발송"],
+    backHome: "홈으로 돌아가기",
+    signupTitle: "좋은 선생님을 만나보세요",
+    signupSub: "무료로 시작해요",
+    nameLabel:"이름", emailLabel:"이메일", passLabel:"비밀번호",
+    signupBtn: "계정 만들기",
+    orLabel: "또는",
+    googleBtn: "Google로 로그인", appleBtn: "Apple로 로그인",
+    privacyNote: "가입하면 개인정보 처리방침 및 이용약관에 동의합니다",
+    tutorRegTitle: "강사로 등록하기",
+    tutorRegSub: "프로필을 만들고 학생을 찾아봐요",
+    basicInfo: "기본 정보",
+    ageLabel: "나이", areaLabel: "거주 지역",
+    photoVideo: "사진·영상",
+    photoLabel: "프로필 사진", videoLabel: "자기소개 영상",
+    photoHint: "탭하여 사진 추가", videoHint: "자기소개 영상 업로드",
+    introSection: "자기소개",
+    introJp: "자기소개 (일본어)", introKr: "자기소개 (한국어)",
+    introJpPh: "일본어로 자기소개를 작성하세요",
+    introKrPh: "한국어로도 자기소개를 작성하세요",
+    styleTitle: "레슨 스타일",
+    availLesson: "가능한 레슨",
+    onlineAvail: "온라인 가능", offlineAvail: "오프라인 가능",
+    priceTitle: "요금 설정 (30분)",
+    onlinePrLabel: "온라인 (30분)", offlinePrLabel: "오프라인 (30분)",
+    tutorRegBtn: "강사로 등록하기",
+    nav: { home:"홈", signup:"회원가입", tutorReg:"강사등록" },
+    tutors: "명의 선생님", next: "다음으로 →",
+    detailBack: "뒤로", bookingBack: "뒤로",
+  },
+};
+
+// ===================== DUMMY DATA =====================
+const tutors = [
+  { id:1, nameKr:"김민준", nameJp:"キム・ミンジュン", nameEn:"Minjun Kim", age:28, area:"東京", type:"犬系",
+    rating:4.9, rc:218, tags:{ja:["初心者OK","フリートーク","恋愛相談"],ko:["초보자 OK","프리토크","연애상담"]},
+    intro:{ja:"優しく楽しくレッスンします！恋愛トークも大歓迎😊",ko:"친절하고 즐겁게 레슨할게요! 연애 토크도 대환영😊"},
+    op:3500, fp:6000, grad:"linear-gradient(135deg,#ffe4e6,#fecdd3)", ab:"#f87171", av:"MJ",
+    styles:["freetalk","beginner","love"], popular:true,
+    reviews:[
+      {n:"さくら",t:"ミンジュン先生はとても優しくて、毎回のレッスンが楽しみになりました💕",r:5},
+      {n:"はな",t:"韓国語が全然話せなかった私でも、3ヶ月で会話できるように！",r:5},
+      {n:"ゆい",t:"先生のトークが面白くて時間があっという間に過ぎます✨",r:5},
+    ]},
+  { id:2, nameKr:"이서준", nameJp:"イ・ソジュン", nameEn:"Seojun Lee", age:25, area:"大阪", type:"クール系",
+    rating:4.8, rc:182, tags:{ja:["フリートーク","初心者OK"],ko:["프리토크","초보자 OK"]},
+    intro:{ja:"クールだけど授業は丁寧です。K-popや映画から学ぼう🎬",ko:"쿨하지만 수업은 친절해요. K-pop·영화로 배워요🎬"},
+    op:3500, fp:6000, grad:"linear-gradient(135deg,#e0e7ff,#c7d2fe)", ab:"#818cf8", av:"SJ",
+    styles:["freetalk","beginner"], popular:true,
+    reviews:[
+      {n:"みさき",t:"クールな見た目なのに授業はとても丁寧で感動しました",r:5},
+      {n:"あかね",t:"K-popの話で盛り上がりながら韓国語を学べます！",r:4},
+    ]},
+  { id:3, nameKr:"박도윤", nameJp:"パク・ドユン", nameEn:"Doyun Park", age:30, area:"東京", type:"年上タイプ",
+    rating:4.9, rc:305, tags:{ja:["オフライン可能","フリートーク","恋愛相談"],ko:["오프라인 가능","프리토크","연애상담"]},
+    intro:{ja:"東京在住10年。カフェで楽しくレッスンしませんか☕",ko:"도쿄 거주 10년. 카페에서 즐겁게 배워봐요☕"},
+    op:3500, fp:6000, grad:"linear-gradient(135deg,#fef3c7,#fde68a)", ab:"#f59e0b", av:"DY",
+    styles:["freetalk","love"], popular:true,
+    reviews:[
+      {n:"なな",t:"カフェでのオフラインレッスンが最高すぎる✨デートみたいでドキドキした",r:5},
+      {n:"りか",t:"ドユン先生は頼りになる年上の雰囲気がすてき",r:5},
+      {n:"もも",t:"毎週のレッスンが楽しみで仕方ないです💗",r:5},
+    ]},
+  { id:4, nameKr:"최현우", nameJp:"チェ・ヒョヌ", nameEn:"Hyunwoo Choi", age:26, area:"福岡", type:"優しい系",
+    rating:4.7, rc:143, tags:{ja:["初心者OK","恋愛相談"],ko:["초보자 OK","연애상담"]},
+    intro:{ja:"初めての韓国語でも大丈夫！一緒にゆっくり頑張ろう🌸",ko:"처음 한국어도 괜찮아요! 함께 천천히 해봐요🌸"},
+    op:3000, fp:5500, grad:"linear-gradient(135deg,#ccfbf1,#a7f3d0)", ab:"#2dd4bf", av:"HW",
+    styles:["beginner","love"], popular:false,
+    reviews:[
+      {n:"こころ",t:"初めて韓国語を習いましたが、ヒョヌ先生のおかげで全然怖くなかった😌",r:5},
+      {n:"あい",t:"優しくて穏やかな先生で毎回癒されてます",r:4},
+    ]},
+  { id:5, nameKr:"정재원", nameJp:"チョン・ジェウォン", nameEn:"Jaewon Jung", age:23, area:"東京", type:"犬系",
+    rating:4.8, rc:97, tags:{ja:["フリートーク","初心者OK","オフライン可能"],ko:["프리토크","초보자 OK","오프라인 가능"]},
+    intro:{ja:"明るくて元気いっぱい！楽しく話しながら韓国語上達✨",ko:"밝고 에너지 넘쳐요! 즐겁게 대화하며 실력 UP✨"},
+    op:3000, fp:5500, grad:"linear-gradient(135deg,#fef9c3,#fde047)", ab:"#eab308", av:"JW",
+    styles:["freetalk","beginner"], popular:false,
+    reviews:[
+      {n:"るか",t:"ジェウォン先生は年が近くて話しやすい！毎回笑いっぱなし😂",r:5},
+      {n:"まい",t:"明るくてレッスンが全然しんどくない",r:4},
+    ]},
+  { id:6, nameKr:"한승민", nameJp:"ハン・スンミン", nameEn:"Seungmin Han", age:29, area:"名古屋", type:"クール系",
+    rating:4.6, rc:88, tags:{ja:["フリートーク","恋愛相談"],ko:["프리토크","연애상담"]},
+    intro:{ja:"ビジネス韓国語からカジュアル会話まで幅広く対応🔥",ko:"비즈니스 한국어부터 캐주얼 회화까지 폭넓게 대응🔥"},
+    op:4000, fp:7000, grad:"linear-gradient(135deg,#ede9fe,#ddd6fe)", ab:"#a78bfa", av:"SM",
+    styles:["freetalk","love"], popular:false,
+    reviews:[
+      {n:"のぞみ",t:"スンミン先生のレッスンは密度が濃くてとても勉強になります",r:5},
+      {n:"ちひろ",t:"クールなのにちゃんと褒めてくれる先生💕",r:4},
+    ]},
+  { id:7, nameKr:"오준혁", nameJp:"オ・ジュンヒョク", nameEn:"Junhyuk Oh", age:32, area:"東京", type:"年上タイプ",
+    rating:4.9, rc:267, tags:{ja:["オフライン可能","初心者OK","フリートーク"],ko:["오프라인 가능","초보자 OK","프리토크"]},
+    intro:{ja:"渋谷・新宿でカフェレッスン開催中🇰🇷一緒に韓国旅行の夢を叶えよう",ko:"시부야·신주쿠 카페 레슨 진행 중🇰🇷함께 한국 여행의 꿈을 이뤄요"},
+    op:3500, fp:6500, grad:"linear-gradient(135deg,#ffe4e6,#fecaca)", ab:"#ef4444", av:"JH",
+    styles:["freetalk","beginner"], popular:false,
+    reviews:[
+      {n:"ゆか",t:"ジュンヒョク先生とのレッスンでソウル旅行がもっと楽しくなりました！",r:5},
+      {n:"さな",t:"カフェで勉強するの初めてだったけどすごく集中できた✨",r:5},
+      {n:"えり",t:"先生の韓国の話が面白くてもっと聞きたくなる",r:5},
+    ]},
+  { id:8, nameKr:"신태양", nameJp:"シン・テヤン", nameEn:"Taeyang Shin", age:27, area:"東京", type:"優しい系",
+    rating:4.8, rc:154, tags:{ja:["初心者OK","フリートーク","恋愛相談","オフライン可能"],ko:["초보자 OK","프리토크","연애상담","오프라인 가능"]},
+    intro:{ja:"韓国ドラマ好きな方大歓迎！ドラマのセリフで自然な韓国語を📺",ko:"한국 드라마 좋아하는 분 대환영! 드라마 대사로 자연스러운 한국어를🎬"},
+    op:3500, fp:6000, grad:"linear-gradient(135deg,#fce7f3,#fbcfe8)", ab:"#ec4899", av:"TY",
+    styles:["freetalk","beginner","love"], popular:false,
+    reviews:[
+      {n:"みお",t:"ドラマで韓国語を教えてもらえるなんて夢みたい！推しのセリフが言えるようになった😭",r:5},
+      {n:"りりか",t:"テヤン先生は話が上手でレッスン中ずっとワクワクしてました",r:5},
+      {n:"あゆ",t:"優しくて丁寧で最高の先生です💗毎週楽しみにしてます",r:5},
+    ]},
+];
+
+// ===================== COMPONENTS =====================
+
+function Stars({ r }) {
+  return <span className="stars">⭐ {r.toFixed(1)}</span>;
+}
+
+function AvatarCircle({ tutor, size=56 }) {
+  return (
+    <div className="avatar-circle" style={{
+      width: size, height: size, background: tutor.ab, fontSize: size * 0.32, flexShrink: 0,
+    }}>{tutor.av}</div>
+  );
+}
+
+function TagChip({ label, color }) {
+  return <span className="tag" style={color ? {background:color.bg,color:color.text} : {}}>{label}</span>;
+}
+
+// ---- HEADER ----
+function Header({ lang, setLang, t, goHome }) {
+  return (
+    <div style={{
+      position:'sticky', top:0, zIndex:50,
+      background:'rgba(255,255,255,0.92)', backdropFilter:'blur(12px)',
+      borderBottom:'1px solid #fecdd3',
+      padding:'12px 16px', display:'flex', alignItems:'center', justifyContent:'space-between',
+    }}>
+      <button onClick={goHome} style={{background:'none',border:'none',cursor:'pointer'}}>
+        <span style={{
+          fontSize:17, fontWeight:800,
+          background:'linear-gradient(135deg,#f43f5e,#ec4899)',
+          WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent',
+        }}>💕 {t.appName}</span>
+      </button>
+      <button
+        onClick={() => setLang(lang==='ja'?'ko':'ja')}
+        style={{
+          fontSize:12, background:'#fff5f7', border:'1.5px solid #fda4af',
+          borderRadius:20, padding:'5px 12px', fontWeight:600, color:'#f43f5e', cursor:'pointer',
+        }}
+      >{lang==='ja'?'한국어':'日本語'}</button>
+    </div>
+  );
+}
+
+// ---- BOTTOM NAV ----
+function BottomNav({ t, screen, setScreen }) {
+  const items = [
+    { key:'home', icon:'🏠', label: t.nav.home },
+    { key:'signup', icon:'👩', label: t.nav.signup },
+    { key:'tutorReg', icon:'👨', label: t.nav.tutorReg },
+  ];
+  return (
+    <div style={{
+      position:'sticky', bottom:0, zIndex:50,
+      background:'rgba(255,255,255,0.95)', backdropFilter:'blur(12px)',
+      borderTop:'1px solid #fecdd3',
+      display:'flex', justifyContent:'space-around', padding:'10px 0 16px',
+    }}>
+      {items.map(item => (
+        <button key={item.key} onClick={()=>setScreen(item.key)} style={{
+          background:'none', border:'none', cursor:'pointer',
+          display:'flex', flexDirection:'column', alignItems:'center', gap:2,
+          color: screen===item.key ? '#f43f5e' : '#9ca3af',
+        }}>
+          <span style={{fontSize:22}}>{item.icon}</span>
+          <span style={{fontSize:11, fontWeight:600}}>{item.label}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// ---- TUTOR CARD ----
+function TutorCard({ tutor, lang, t, onView }) {
+  return (
+    <div className="tutor-card">
+      <div className="tutor-img" style={{background: tutor.grad, height:160}}>
+        <div style={{display:'flex',flexDirection:'column',alignItems:'center',gap:8}}>
+          <AvatarCircle tutor={tutor} size={64} />
+          <span style={{fontSize:11, color:'#6b7280', background:'rgba(255,255,255,0.75)', borderRadius:20, padding:'2px 8px'}}>{tutor.type}</span>
+        </div>
+        {tutor.popular && <div className="badge-pop">{t.popBadge}</div>}
+      </div>
+      <div style={{flex:1, padding:'12px 12px 12px 10px', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
+        <div>
+          <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:2}}>
+            <span style={{fontWeight:700,fontSize:15,color:'#1f2937'}}>{lang==='ja'?tutor.nameJp:tutor.nameKr}</span>
+            <span style={{fontSize:11,color:'#9ca3af'}}>{tutor.age}{t.age}</span>
+          </div>
+          <p style={{fontSize:11,color:'#6b7280',lineHeight:1.5,marginBottom:6}}>{lang==='ja'?tutor.intro.ja:tutor.intro.ko}</p>
+          <div style={{display:'flex',gap:4,flexWrap:'wrap',marginBottom:6}}>
+            {(lang==='ja'?tutor.tags.ja:tutor.tags.ko).slice(0,2).map((tg,i)=>(
+              <TagChip key={i} label={tg} />
+            ))}
+          </div>
+        </div>
+        <div>
+          <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:4}}>
+            <Stars r={tutor.rating} />
+            <span style={{fontSize:11,color:'#9ca3af'}}>({tutor.rc}{t.reviews})</span>
+          </div>
+          <div style={{display:'flex',gap:8,marginBottom:7,fontSize:11}}>
+            <span style={{color:'#6b7280'}}>💻 ¥{tutor.op.toLocaleString()}</span>
+            <span style={{color:'#f43f5e',fontWeight:700}}>🏠 ¥{tutor.fp.toLocaleString()}</span>
+          </div>
+          <button className="btn-primary" style={{padding:'8px',fontSize:12}} onClick={onView}>
+            {t.viewProfile}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ---- HOME SCREEN ----
+function HomeScreen({ lang, t, setScreen, setTutor }) {
+  const [sort, setSort] = useState('popular');
+  const [showSort, setShowSort] = useState(false);
+  const [activeFilters, setActiveFilters] = useState([]);
+  const fkeys = Object.keys(t.filters);
+
+  const toggleFilter = f => setActiveFilters(p => p.includes(f)?p.filter(x=>x!==f):[...p,f]);
+
+  return (
+    <div style={{paddingBottom:8}}>
+      {/* Hero */}
+      <div style={{background:'linear-gradient(135deg,#fff5f7,#fce7f3,#fdf4ff)',padding:'20px 16px 28px'}}>
+        <p style={{fontSize:12,color:'#9ca3af',marginBottom:4}}>✨ {lang==='ja'?'毎週500人以上が学習中':'매주 500명 이상이 학습 중'}</p>
+        <h1 style={{fontSize:22,fontWeight:800,color:'#1f2937',lineHeight:1.3,marginBottom:14}}>{t.tagline}</h1>
+        <div style={{background:'#fff',borderRadius:16,border:'1px solid #fecdd3',display:'flex',alignItems:'center',padding:'11px 14px',gap:8,boxShadow:'0 2px 8px rgba(244,63,94,0.07)'}}>
+          <span style={{color:'#9ca3af'}}>🔍</span>
+          <input placeholder={t.searchPh} style={{flex:1,border:'none',outline:'none',fontSize:13,color:'#374151',background:'transparent'}} />
+        </div>
+      </div>
+
+      {/* Sort + Filter */}
+      <div style={{padding:'14px 16px 0'}}>
+        <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:10}}>
+          <div style={{position:'relative'}}>
+            <button onClick={()=>setShowSort(!showSort)} style={{
+              display:'flex',alignItems:'center',gap:5,background:'#fff',
+              border:'1.5px solid #fecdd3',borderRadius:14,padding:'7px 12px',
+              fontSize:12,color:'#374151',cursor:'pointer',fontWeight:600,
+            }}>
+              <span>↕️</span><span>{t.sortOpts[sort]}</span><span style={{color:'#9ca3af'}}>▾</span>
+            </button>
+            {showSort && (
+              <div className="sort-dropdown">
+                {Object.keys(t.sortOpts).map(k=>(
+                  <button key={k} className={`sort-option ${sort===k?'selected':''}`}
+                    onClick={()=>{setSort(k);setShowSort(false);}}>
+                    {t.sortOpts[k]}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          <span style={{fontSize:12,color:'#9ca3af'}}>{tutors.length}{t.tutors}</span>
+        </div>
+
+        <div style={{display:'flex',gap:6,flexWrap:'wrap',marginBottom:14}}>
+          {fkeys.map(f=>(
+            <button key={f} className={`filter-chip ${activeFilters.includes(f)?'active':''}`}
+              onClick={()=>toggleFilter(f)}>{t.filters[f]}</button>
+          ))}
+        </div>
+
+        {tutors.map(tutor=>(
+          <TutorCard key={tutor.id} tutor={tutor} lang={lang} t={t}
+            onView={()=>{setTutor(tutor);setScreen('detail');}} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ---- DETAIL SCREEN ----
+function DetailScreen({ lang, t, tutor, setScreen }) {
+  const [tab, setTab] = useState('online');
+
+  const onlineCourses = [
+    {label: lang==='ja'?'20分':'20분', price:`¥${Math.round(tutor.op*0.71).toLocaleString()}`},
+    {label: lang==='ja'?'30分':'30분', price:`¥${tutor.op.toLocaleString()}`},
+    {label: lang==='ja'?'60分':'60분', price:`¥${(tutor.op*1.7).toLocaleString()}`},
+  ];
+  const offlineCourses = [
+    {label: lang==='ja'?'20分':'20분', price:`¥${Math.round(tutor.fp*0.75).toLocaleString()}`},
+    {label: lang==='ja'?'30分':'30분', price:`¥${tutor.fp.toLocaleString()}`},
+    {label: lang==='ja'?'60分':'60분', price:`¥${(tutor.fp*1.8).toLocaleString()}`},
+  ];
+
+  return (
+    <div style={{paddingBottom:80}}>
+      {/* Hero */}
+      <div style={{background:tutor.grad,padding:'14px 16px 40px',textAlign:'center'}}>
+        <button onClick={()=>setScreen('home')} style={{
+          display:'flex',alignItems:'center',gap:4,background:'none',border:'none',
+          fontSize:13,color:'#374151',cursor:'pointer',fontWeight:600,marginBottom:12,
+        }}>← {t.detailBack}</button>
+        <div style={{display:'flex',flexDirection:'column',alignItems:'center'}}>
+          <AvatarCircle tutor={tutor} size={100} />
+          <h2 style={{fontSize:22,fontWeight:800,color:'#1f2937',marginTop:10}}>{lang==='ja'?tutor.nameJp:tutor.nameKr}</h2>
+          <p style={{fontSize:13,color:'#6b7280',marginTop:2}}>{tutor.nameEn} · {tutor.age}{t.age} · {tutor.area}</p>
+          <div style={{display:'flex',alignItems:'center',gap:8,marginTop:6}}>
+            <Stars r={tutor.rating} />
+            <span style={{fontSize:12,color:'#6b7280'}}>({tutor.rc}{t.reviews})</span>
+            <span style={{fontSize:11,background:'rgba(255,255,255,0.8)',border:'1px solid #fecdd3',color:'#f43f5e',padding:'2px 8px',borderRadius:20,fontWeight:600}}>{tutor.type}</span>
+          </div>
+        </div>
+      </div>
+
+      <div style={{padding:'0 16px',marginTop:-20}}>
+        {/* Intro */}
+        <div className="card" style={{padding:16,marginBottom:12}}>
+          <p style={{fontSize:13,color:'#374151',lineHeight:1.7}}>{lang==='ja'?tutor.intro.ja:tutor.intro.ko}</p>
+        </div>
+
+        {/* Lesson Type */}
+        <div className="card" style={{padding:16,marginBottom:12}}>
+          <div className="section-title">{lang==='ja'?'レッスンタイプ':'레슨 타입'}</div>
+          <div style={{display:'flex',gap:8,marginBottom:14}}>
+            <button className={`toggle-btn ${tab==='online'?'toggle-active':'toggle-inactive'}`} onClick={()=>setTab('online')}>
+              💻 {t.onlineL}
+            </button>
+            <button className={`toggle-btn ${tab==='offline'?'toggle-active':'toggle-inactive'}`} onClick={()=>setTab('offline')}>
+              🏠 {t.offlineL}
+            </button>
+          </div>
+          {tab==='online' ? (
+            <div style={{display:'flex',flexDirection:'column',gap:8}}>
+              {onlineCourses.map((c,i)=>(
+                <div key={i} style={{display:'flex',justifyContent:'space-between',alignItems:'center',background:'#fff5f7',borderRadius:14,padding:'11px 16px'}}>
+                  <span style={{fontSize:13,color:'#374151',fontWeight:500}}>{c.label}</span>
+                  <span style={{fontSize:14,color:'#f43f5e',fontWeight:700}}>{c.price}</span>
+                </div>
+              ))}
+            </div>
+          ):(
+            <div>
+              <div style={{background:'linear-gradient(135deg,#fff1f2,#ffe4e6)',border:'1px solid #fecdd3',borderRadius:14,padding:'11px 14px',marginBottom:10,display:'flex',alignItems:'center',gap:8}}>
+                <span>📍</span>
+                <div>
+                  <span className="badge-premium" style={{position:'static',display:'inline-block',marginBottom:4}}>{t.premBadge} · {t.popBadge}</span>
+                  <p style={{fontSize:12,color:'#374151'}}>{t.offlineDesc}</p>
+                </div>
+              </div>
+              <div style={{display:'flex',flexDirection:'column',gap:8}}>
+                {offlineCourses.map((c,i)=>(
+                  <div key={i} style={{display:'flex',justifyContent:'space-between',alignItems:'center',background:'#fff1f2',borderRadius:14,padding:'11px 16px'}}>
+                    <span style={{fontSize:13,color:'#374151',fontWeight:500}}>{c.label}</span>
+                    <span style={{fontSize:14,color:'#f43f5e',fontWeight:700}}>{c.price}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Style */}
+        <div className="card" style={{padding:16,marginBottom:12}}>
+          <div className="section-title">{t.lessonStyle}</div>
+          <div style={{display:'flex',flexDirection:'column',gap:8}}>
+            {tutor.styles.map(s=>(
+              <div key={s} className="check-item">
+                <span style={{color:'#22c55e',fontWeight:700,fontSize:16}}>✔</span>
+                <span style={{fontSize:13,color:'#374151'}}>{t.styles[s]}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Reviews */}
+        <div className="card" style={{padding:16,marginBottom:12}}>
+          <div className="section-title">💬 {t.reviewSec}</div>
+          <div style={{display:'flex',flexDirection:'column',gap:10}}>
+            {tutor.reviews.map((rv,i)=>(
+              <div key={i} className="review-card">
+                <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:5}}>
+                  <div className="avatar-circle" style={{width:28,height:28,background:'#fda4af',fontSize:12}}>{rv.n[0]}</div>
+                  <span style={{fontSize:13,fontWeight:600,color:'#374151'}}>{rv.n}</span>
+                  <Stars r={rv.r} />
+                </div>
+                <p style={{fontSize:12,color:'#6b7280',lineHeight:1.6}}>{rv.t}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="bottom-bar">
+        <button className="btn-primary" onClick={()=>setScreen('booking')}>
+          💕 {t.bookNow}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ---- BOOKING SCREEN ----
+function BookingScreen({ lang, t, tutor, setScreen }) {
+  const [ltype, setLtype] = useState('online');
+  const [selDate, setSelDate] = useState(null);
+  const [selTime, setSelTime] = useState(null);
+  const [selCourse, setSelCourse] = useState(null);
+
+  const times = ['10:00','11:00','12:00','14:00','15:00','16:00','18:00','19:00','20:00'];
+  const today = new Date(2026,3,9);
+  const dates = Array.from({length:14},(_,i)=>{const d=new Date(today);d.setDate(today.getDate()+i+1);return d;});
+  const dayNamesJa = ['日','月','火','水','木','金','土'];
+  const dayNamesKo = ['일','월','화','수','목','금','토'];
+  const dayNames = lang==='ja' ? dayNamesJa : dayNamesKo;
+
+  const oCourses = lang==='ja'
+    ? [{k:'20m',l:'20分コース',p:'¥2,500'},{k:'30m',l:'30分コース',p:'¥3,500'},{k:'60m',l:'60分コース',p:'¥6,000'}]
+    : [{k:'20m',l:'20분 코스',p:'¥2,500'},{k:'30m',l:'30분 코스',p:'¥3,500'},{k:'60m',l:'60분 코스',p:'¥6,000'}];
+  const fCourses = lang==='ja'
+    ? [{k:'o20m',l:'20分コース',p:'¥4,500'},{k:'o30m',l:'30分コース',p:'¥6,000'},{k:'o60m',l:'60分コース',p:'¥11,000'}]
+    : [{k:'o20m',l:'20분 코스',p:'¥4,500'},{k:'o30m',l:'30분 코스',p:'¥6,000'},{k:'o60m',l:'60분 코스',p:'¥11,000'}];
+  const courses = ltype==='online' ? oCourses : fCourses;
+  const canGo = selDate!==null && selTime!==null && selCourse!==null;
+
+  return (
+    <div style={{paddingBottom:80}}>
+      <div style={{background:'linear-gradient(135deg,#fff5f7,#ffe4e6)',padding:'14px 16px 24px'}}>
+        <button onClick={()=>setScreen('detail')} style={{display:'flex',alignItems:'center',gap:4,background:'none',border:'none',fontSize:13,color:'#374151',cursor:'pointer',fontWeight:600,marginBottom:8}}>
+          ← {t.bookingBack}
+        </button>
+        <h2 style={{fontSize:19,fontWeight:800,color:'#1f2937'}}>
+          {lang==='ja'?`${tutor.nameJp}先生の予約`:`${tutor.nameKr} 선생님 예약`}
+        </h2>
+      </div>
+
+      <div style={{padding:'14px 16px',display:'flex',flexDirection:'column',gap:12}}>
+        {/* Step 1: Lesson Type */}
+        <div className="card" style={{padding:16}}>
+          <div className="section-title">① {t.selectLesson}</div>
+          <div style={{display:'flex',gap:8}}>
+            <button className={`toggle-btn ${ltype==='online'?'toggle-active':'toggle-inactive'}`} onClick={()=>{setLtype('online');setSelCourse(null);}}>
+              💻 {t.onlineStr}
+            </button>
+            <button className={`toggle-btn ${ltype==='offline'?'toggle-active':'toggle-inactive'}`} onClick={()=>{setLtype('offline');setSelCourse(null);}}>
+              🏠 {t.offlineStr}
+            </button>
+          </div>
+        </div>
+
+        {/* Step 2: Course */}
+        <div className="card" style={{padding:16}}>
+          <div className="section-title">② {t.selectCourse}</div>
+          <div style={{display:'flex',flexDirection:'column',gap:8}}>
+            {courses.map(c=>(
+              <button key={c.k} onClick={()=>setSelCourse(c.k)} style={{
+                display:'flex',alignItems:'center',justifyContent:'space-between',
+                padding:'12px 16px',borderRadius:14,border:`2px solid ${selCourse===c.k?'#f43f5e':'#f3f4f6'}`,
+                background: selCourse===c.k?'#fff1f2':'#fafafa',cursor:'pointer',transition:'all 0.2s',
+              }}>
+                <span style={{fontSize:13,fontWeight:500,color:'#374151'}}>{c.l}</span>
+                <span style={{fontSize:14,fontWeight:700,color:selCourse===c.k?'#f43f5e':'#6b7280'}}>{c.p}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Step 3: Date */}
+        <div className="card" style={{padding:16}}>
+          <div className="section-title">③ {t.selectDate}</div>
+          <div className="date-scroll">
+            {dates.map((d,i)=>(
+              <button key={i} className={`date-btn ${selDate===i?'selected':''}`} onClick={()=>setSelDate(i)}>
+                <span style={{fontSize:10,color:'#9ca3af'}}>{dayNames[d.getDay()]}</span>
+                <span style={{fontSize:15,fontWeight:700,color:selDate===i?'#f43f5e':'#374151'}}>{d.getDate()}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Step 4: Time */}
+        <div className="card" style={{padding:16}}>
+          <div className="section-title">④ {t.selectTime}</div>
+          <div className="time-grid">
+            {times.map(tm=>(
+              <button key={tm} className={`time-btn ${selTime===tm?'selected':''}`} onClick={()=>setSelTime(tm)}>
+                {tm}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="bottom-bar">
+        <button className="btn-primary" disabled={!canGo} onClick={()=>canGo&&setScreen('confirm')}>
+          {t.next}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ---- CONFIRM SCREEN ----
+function ConfirmScreen({ lang, t, tutor, setScreen }) {
+  const items = [
+    {icon:'💻', label:t.lessonTypeLabel, val: lang==='ja'?'オンライン · 30分コース':'온라인 · 30분 코스'},
+    {icon:'📅', label:t.timeLabel, val: lang==='ja'?'4月15日（火）15:00〜':'4월 15일(화) 15:00~'},
+    {icon:'💴', label:t.priceLabel, val:'¥3,500'},
+  ];
+  return (
+    <div style={{paddingBottom:80}}>
+      <div style={{background:'linear-gradient(135deg,#fff5f7,#ffe4e6)',padding:'14px 16px 24px'}}>
+        <button onClick={()=>setScreen('booking')} style={{display:'flex',alignItems:'center',gap:4,background:'none',border:'none',fontSize:13,color:'#374151',cursor:'pointer',fontWeight:600,marginBottom:8}}>
+          ← {t.bookingBack}
+        </button>
+        <h2 style={{fontSize:19,fontWeight:800,color:'#1f2937'}}>{t.confirmTitle}</h2>
+      </div>
+
+      <div style={{padding:'14px 16px',display:'flex',flexDirection:'column',gap:12}}>
+        {/* Tutor */}
+        <div className="card" style={{padding:16}}>
+          <div style={{display:'flex',alignItems:'center',gap:14}}>
+            <AvatarCircle tutor={tutor} size={56} />
+            <div>
+              <div style={{fontWeight:700,fontSize:16,color:'#1f2937'}}>{lang==='ja'?tutor.nameJp:tutor.nameKr}</div>
+              <div style={{fontSize:12,color:'#9ca3af',marginTop:1}}>{tutor.age}{t.age} · {tutor.area}</div>
+              <Stars r={tutor.rating} />
+            </div>
+          </div>
+        </div>
+
+        {/* Booking details */}
+        <div className="card" style={{padding:16}}>
+          {items.map((item,i)=>(
+            <div key={i} style={{
+              display:'flex',alignItems:'center',justifyContent:'space-between',
+              padding:'10px 0',borderBottom: i<items.length-1?'1px solid #f9fafb':'none',
+            }}>
+              <div style={{display:'flex',alignItems:'center',gap:8}}>
+                <span>{item.icon}</span>
+                <span style={{fontSize:13,color:'#6b7280'}}>{item.label}</span>
+              </div>
+              <span style={{fontSize:13,fontWeight:600,color:'#1f2937'}}>{item.val}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Checkpoints */}
+        <div style={{background:'linear-gradient(135deg,#fff1f2,#ffe4e6)',borderRadius:20,padding:16,border:'1px solid #fecdd3'}}>
+          {t.checks.map((c,i)=>(
+            <div key={i} className="check-item">
+              <span style={{color:'#22c55e',fontWeight:700,fontSize:18}}>✔</span>
+              <span style={{fontSize:13,color:'#374151'}}>{c}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Payment */}
+        <div className="card" style={{padding:16}}>
+          <div className="section-title">{t.payMethod}</div>
+          <div style={{display:'flex',alignItems:'center',gap:12,background:'#fafafa',borderRadius:14,padding:'12px 14px'}}>
+            <span style={{fontSize:28}}>💳</span>
+            <div>
+              <div style={{fontSize:13,fontWeight:600,color:'#374151'}}>Visa **** 4242</div>
+              <div style={{fontSize:11,color:'#9ca3af'}}>{lang==='ja'?'登録済みカード':'등록된 카드'}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="bottom-bar">
+        <button className="btn-primary" onClick={()=>setScreen('complete')}>
+          💕 {t.confirmBtn}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ---- COMPLETE SCREEN ----
+function CompleteScreen({ lang, t, tutor, setScreen }) {
+  return (
+    <div className="complete-screen">
+      <div className="emoji-bounce">🎉</div>
+      <h2 style={{fontSize:22,fontWeight:800,color:'#1f2937',marginBottom:6}}>{t.completeTitle}</h2>
+      <p style={{fontSize:13,color:'#9ca3af',marginBottom:24}}>
+        {lang==='ja'?`${tutor.nameJp}先生のレッスンが予約されました`:`${tutor.nameKr} 선생님 레슨이 예약되었습니다`}
+      </p>
+      <div className="card" style={{padding:16,marginBottom:24,textAlign:'left',width:'100%',maxWidth:300}}>
+        {t.completeNotes.map((n,i)=>(
+          <div key={i} style={{display:'flex',alignItems:'flex-start',gap:8,marginBottom: i<t.completeNotes.length-1?10:0}}>
+            <span style={{color:'#3b82f6',marginTop:1}}>·</span>
+            <span style={{fontSize:13,color:'#374151'}}>{n}</span>
+          </div>
+        ))}
+      </div>
+      <AvatarCircle tutor={tutor} size={72} />
+      <p style={{fontSize:13,color:'#6b7280',margin:'12px 0 20px'}}>
+        {lang==='ja'?`また${tutor.nameJp}先生に会えるのが楽しみ！`:`또 ${tutor.nameKr} 선생님을 만나는 게 기대돼요!`}
+      </p>
+      <button className="btn-primary" style={{maxWidth:240}} onClick={()=>setScreen('home')}>
+        {t.backHome}
+      </button>
+    </div>
+  );
+}
+
+// ---- SIGNUP SCREEN ----
+function SignupScreen({ lang, t }) {
+  return (
+    <div style={{padding:'24px 20px 32px'}}>
+      <div style={{textAlign:'center',marginBottom:28}}>
+        <div style={{fontSize:52,marginBottom:10}}>💕</div>
+        <h2 style={{fontSize:22,fontWeight:800,color:'#1f2937',marginBottom:4}}>{t.signupTitle}</h2>
+        <p style={{fontSize:13,color:'#9ca3af'}}>{t.signupSub}</p>
+      </div>
+
+      <div style={{display:'flex',flexDirection:'column',gap:10,marginBottom:20}}>
+        <button style={{display:'flex',alignItems:'center',justifyContent:'center',gap:10,background:'#fff',border:'2px solid #e5e7eb',borderRadius:16,padding:'13px',fontSize:13,fontWeight:600,color:'#374151',cursor:'pointer'}}>
+          <span style={{fontSize:20}}>🔵</span> {t.googleBtn}
+        </button>
+        <button style={{display:'flex',alignItems:'center',justifyContent:'center',gap:10,background:'#000',border:'none',borderRadius:16,padding:'13px',fontSize:13,fontWeight:600,color:'#fff',cursor:'pointer'}}>
+          <span style={{fontSize:20}}>🍎</span> {t.appleBtn}
+        </button>
+      </div>
+
+      <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:20}}>
+        <div style={{flex:1,height:1,background:'#e5e7eb'}} />
+        <span style={{fontSize:12,color:'#9ca3af'}}>{t.orLabel}</span>
+        <div style={{flex:1,height:1,background:'#e5e7eb'}} />
+      </div>
+
+      <div style={{display:'flex',flexDirection:'column',gap:14,marginBottom:20}}>
+        {[
+          {label:t.nameLabel,ph:lang==='ja'?'山田 花子':'홍길동',type:'text'},
+          {label:t.emailLabel,ph:lang==='ja'?'hanako@example.com':'example@email.com',type:'email'},
+          {label:t.passLabel,ph:'••••••••',type:'password'},
+        ].map((f,i)=>(
+          <div key={i}>
+            <label style={{fontSize:13,fontWeight:600,color:'#374151',display:'block',marginBottom:5}}>{f.label}</label>
+            <input type={f.type} placeholder={f.ph} className="inp" />
+          </div>
+        ))}
+      </div>
+
+      <button className="btn-primary" style={{marginBottom:14}}>{t.signupBtn}</button>
+      <p style={{fontSize:11,color:'#9ca3af',textAlign:'center',lineHeight:1.5}}>{t.privacyNote}</p>
+    </div>
+  );
+}
+
+// ---- TUTOR REG SCREEN ----
+function TutorRegScreen({ lang, t }) {
+  const [onlineOn, setOnlineOn] = useState(false);
+  const [offlineOn, setOfflineOn] = useState(false);
+  const [selStyles, setSelStyles] = useState([]);
+  const skeys = Object.keys(t.styles);
+  const toggle = s => setSelStyles(p=>p.includes(s)?p.filter(x=>x!==s):[...p,s]);
+
+  function Toggle({ on, setOn }) {
+    return (
+      <button onClick={()=>setOn(!on)} style={{
+        width:48,height:26,borderRadius:13,background:on?'#f43f5e':'#d1d5db',
+        border:'none',cursor:'pointer',position:'relative',transition:'background 0.2s',flexShrink:0,
+      }}>
+        <span style={{
+          position:'absolute',top:3,width:20,height:20,background:'#fff',borderRadius:'50%',
+          boxShadow:'0 1px 4px rgba(0,0,0,0.2)',transition:'left 0.2s',
+          left: on?25:3,
+        }} />
+      </button>
+    );
+  }
+
+  return (
+    <div style={{padding:'20px 16px 32px'}}>
+      <div style={{textAlign:'center',marginBottom:20}}>
+        <div style={{fontSize:40,marginBottom:8}}>👨</div>
+        <h2 style={{fontSize:20,fontWeight:800,color:'#1f2937'}}>{t.tutorRegTitle}</h2>
+        <p style={{fontSize:12,color:'#9ca3af',marginTop:4}}>{t.tutorRegSub}</p>
+      </div>
+
+      <div style={{display:'flex',flexDirection:'column',gap:12}}>
+        {/* Basic */}
+        <div className="card" style={{padding:16}}>
+          <div className="section-title">{t.basicInfo}</div>
+          {[
+            {l:t.nameLabel,ph:lang==='ja'?'キム・ミンジュン':'김민준',tp:'text'},
+            {l:t.ageLabel,ph:'25',tp:'number'},
+            {l:t.areaLabel,ph:lang==='ja'?'東京都新宿区':'도쿄도 신주쿠구',tp:'text'},
+          ].map((f,i)=>(
+            <div key={i} style={{marginBottom:12}}>
+              <label style={{fontSize:12,fontWeight:600,color:'#6b7280',display:'block',marginBottom:5}}>{f.l}</label>
+              <input type={f.tp} placeholder={f.ph} className="inp" />
+            </div>
+          ))}
+        </div>
+
+        {/* Photo & Video */}
+        <div className="card" style={{padding:16}}>
+          <div className="section-title">{t.photoVideo}</div>
+          {[
+            {l:t.photoLabel,icon:'📸',h:t.photoHint},
+            {l:t.videoLabel,icon:'🎬',h:t.videoHint},
+          ].map((f,i)=>(
+            <div key={i} style={{marginBottom: i===0?12:0}}>
+              <label style={{fontSize:12,fontWeight:600,color:'#6b7280',display:'block',marginBottom:6}}>{f.l}</label>
+              <div style={{border:'2px dashed #fda4af',borderRadius:16,padding:'20px',display:'flex',flexDirection:'column',alignItems:'center',gap:6,background:'#fff5f7',cursor:'pointer'}}>
+                <span style={{fontSize:32}}>{f.icon}</span>
+                <span style={{fontSize:12,color:'#9ca3af'}}>{f.h}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Intro */}
+        <div className="card" style={{padding:16}}>
+          <div className="section-title">{t.introSection}</div>
+          {[
+            {l:t.introJp,ph:t.introJpPh},
+            {l:t.introKr,ph:t.introKrPh},
+          ].map((f,i)=>(
+            <div key={i} style={{marginBottom: i===0?12:0}}>
+              <label style={{fontSize:12,fontWeight:600,color:'#6b7280',display:'block',marginBottom:5}}>{f.l}</label>
+              <textarea placeholder={f.ph} rows={3} className="inp" style={{resize:'none',lineHeight:1.6}} />
+            </div>
+          ))}
+        </div>
+
+        {/* Styles */}
+        <div className="card" style={{padding:16}}>
+          <div className="section-title">{t.styleTitle}</div>
+          <div style={{display:'flex',flexWrap:'wrap',gap:8}}>
+            {skeys.map(s=>(
+              <button key={s} onClick={()=>toggle(s)} style={{
+                padding:'8px 14px',borderRadius:20,border:`2px solid ${selStyles.includes(s)?'#f43f5e':'#e5e7eb'}`,
+                background: selStyles.includes(s)?'#f43f5e':'#fafafa',
+                color: selStyles.includes(s)?'#fff':'#6b7280',
+                fontSize:12,fontWeight:600,cursor:'pointer',transition:'all 0.2s',
+              }}>{t.styles[s]}</button>
+            ))}
+          </div>
+        </div>
+
+        {/* Online/Offline toggle */}
+        <div className="card" style={{padding:16}}>
+          <div className="section-title">{t.availLesson}</div>
+          {[
+            {icon:'💻',label:t.onlineAvail,on:onlineOn,set:setOnlineOn},
+            {icon:'🏠',label:t.offlineAvail,on:offlineOn,set:setOfflineOn},
+          ].map((item,i)=>(
+            <div key={i} style={{
+              display:'flex',alignItems:'center',justifyContent:'space-between',
+              background:'#fafafa',borderRadius:14,padding:'12px 14px',
+              marginBottom: i===0?8:0,
+            }}>
+              <div style={{display:'flex',alignItems:'center',gap:8}}>
+                <span>{item.icon}</span>
+                <span style={{fontSize:13,fontWeight:500,color:'#374151'}}>{item.label}</span>
+              </div>
+              <button onClick={()=>item.set(!item.on)} style={{
+                width:48,height:26,borderRadius:13,background:item.on?'#f43f5e':'#d1d5db',
+                border:'none',cursor:'pointer',position:'relative',transition:'background 0.2s',
+              }}>
+                <span style={{
+                  position:'absolute',top:3,width:20,height:20,background:'#fff',borderRadius:'50%',
+                  boxShadow:'0 1px 4px rgba(0,0,0,0.2)',transition:'left 0.2s',
+                  left: item.on?25:3,
+                }} />
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {/* Price */}
+        <div className="card" style={{padding:16}}>
+          <div className="section-title">{t.priceTitle}</div>
+          {[
+            {l:t.onlinePrLabel,ph:'3500'},
+            {l:t.offlinePrLabel,ph:'6000'},
+          ].map((f,i)=>(
+            <div key={i} style={{display:'flex',alignItems:'center',gap:10,marginBottom: i===0?10:0}}>
+              <label style={{fontSize:12,color:'#6b7280',minWidth:120,fontWeight:500}}>{f.l}</label>
+              <div style={{flex:1,display:'flex',alignItems:'center',border:'2px solid #f3f4f6',borderRadius:14,padding:'10px 12px',background:'#fafafa'}}>
+                <span style={{color:'#9ca3af',fontSize:13,marginRight:4}}>¥</span>
+                <input type="number" placeholder={f.ph} style={{flex:1,border:'none',outline:'none',fontSize:13,background:'transparent',color:'#374151'}} />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <button className="btn-primary">
+          👨 {t.tutorRegBtn}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ===================== APP =====================
+function App() {
+  const [lang, setLang] = useState('ja');
+  const [screen, setScreen] = useState('home');
+  const [tutor, setTutor] = useState(tutors[0]);
+  const t = i18n[lang];
+
+  const noNav = ['complete'];
+
+  return (
+    <div className="app-shell">
+      {screen !== 'complete' && (
+        <Header lang={lang} setLang={setLang} t={t} goHome={()=>setScreen('home')} />
+      )}
+      <div className="screen-scroll">
+        {screen === 'home'     && <HomeScreen    lang={lang} t={t} setScreen={setScreen} setTutor={setTutor} />}
+        {screen === 'detail'   && <DetailScreen  lang={lang} t={t} tutor={tutor} setScreen={setScreen} />}
+        {screen === 'booking'  && <BookingScreen lang={lang} t={t} tutor={tutor} setScreen={setScreen} />}
+        {screen === 'confirm'  && <ConfirmScreen lang={lang} t={t} tutor={tutor} setScreen={setScreen} />}
+        {screen === 'complete' && <CompleteScreen lang={lang} t={t} tutor={tutor} setScreen={setScreen} />}
+        {screen === 'signup'   && <SignupScreen  lang={lang} t={t} />}
+        {screen === 'tutorReg' && <TutorRegScreen lang={lang} t={t} />}
+      </div>
+      {!noNav.includes(screen) && (
+        <BottomNav t={t} screen={screen} setScreen={setScreen} />
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
